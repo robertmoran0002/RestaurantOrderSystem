@@ -76,6 +76,7 @@ namespace RestaurantOrderSystemForms
 
         private void catUpdateButton_Click(object sender, EventArgs e)
         {
+            //A try catch is needed here
             MenuCategory menuCat = new MenuCategory();
             menuCat.CategoryId = Int32.Parse(menuCatViewListBox.SelectedItem.ToString().Trim()
                 .Remove(menuCatViewListBox.SelectedItem.ToString().IndexOf("N")).Substring("Id:".Length));

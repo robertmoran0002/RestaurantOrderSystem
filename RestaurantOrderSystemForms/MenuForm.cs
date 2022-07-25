@@ -332,6 +332,7 @@ namespace RestaurantOrderSystemForms
 
         private void tabControl1_MouseClick(object sender, MouseEventArgs e)
         {
+
         }
     }
 }
