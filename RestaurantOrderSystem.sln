@@ -1,0 +1,37 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.2.32526.322
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RestaurantOrderSystem", "RestaurantOrderSystem\RestaurantOrderSystem.csproj", "{5F5207DC-19AA-4AFA-8E67-90611F193176}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RestaurantOrderSystemForms", "RestaurantOrderSystemForms\RestaurantOrderSystemForms.csproj", "{821A3EEC-8AAF-46DC-A05F-150F42FC9CA8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RestaurantOderSystemWeb", "RestaurantOderSystemWeb\RestaurantOderSystemWeb.csproj", "{84CB89B8-0581-4002-9265-6AB56286A610}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{5F5207DC-19AA-4AFA-8E67-90611F193176}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5F5207DC-19AA-4AFA-8E67-90611F193176}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5F5207DC-19AA-4AFA-8E67-90611F193176}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5F5207DC-19AA-4AFA-8E67-90611F193176}.Release|Any CPU.Build.0 = Release|Any CPU
+		{821A3EEC-8AAF-46DC-A05F-150F42FC9CA8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{821A3EEC-8AAF-46DC-A05F-150F42FC9CA8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{821A3EEC-8AAF-46DC-A05F-150F42FC9CA8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{821A3EEC-8AAF-46DC-A05F-150F42FC9CA8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{84CB89B8-0581-4002-9265-6AB56286A610}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{84CB89B8-0581-4002-9265-6AB56286A610}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{84CB89B8-0581-4002-9265-6AB56286A610}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{84CB89B8-0581-4002-9265-6AB56286A610}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {1A9305BE-F9D0-4314-9EF3-7E7AD3456F6D}
+	EndGlobalSection
+EndGlobal
