@@ -161,6 +161,13 @@ namespace RestaurantOrderSystemForms
 
         private async void menuDeleteButton_ClickAsync(object sender, EventArgs e)
         {
+            if (menuViewListBox.SelectedItem == null)
+            {
+                MessageBox.Show("Please select an item");
+                //tabControl1.SelectedIndex = 2;
+                return;
+            }
+
             Menu menu = new Menu();
 
             if (menuViewListBox.SelectedItem != null)
@@ -186,7 +193,9 @@ namespace RestaurantOrderSystemForms
         {
             if (menuViewListBox.SelectedItem == null)
             {
-                tabControl1.SelectedIndex = 2;
+                MessageBox.Show("Please select an item");
+                //tabControl1.SelectedIndex = 2;
+                return;
             }
             else{
                     Menu menu = new Menu();
@@ -240,6 +249,11 @@ namespace RestaurantOrderSystemForms
 
         private async void menuUpdateButton_Click(object sender, EventArgs e)
         {
+            if (menuIdUpBox.Text == "" || !Char.IsDigit(menuIdUpBox.Text,0)) 
+            {
+                MessageBox.Show("Please enter an id!");
+                return;
+            }
             Menu menu = new Menu();
             MenuCategory menuCategory = new MenuCategory();
 
@@ -331,6 +345,11 @@ namespace RestaurantOrderSystemForms
         }
 
         private void tabControl1_MouseClick(object sender, MouseEventArgs e)
+        {
+
+        }
+
+        private void MenuForm_FormClosed(object sender, FormClosedEventArgs e)
         {
 
         }
