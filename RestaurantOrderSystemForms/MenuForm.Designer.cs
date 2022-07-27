@@ -36,6 +36,7 @@
             this.viewMenuButton = new System.Windows.Forms.Button();
             this.label6 = new System.Windows.Forms.Label();
             this.addMenuTab = new System.Windows.Forms.TabPage();
+            this.label15 = new System.Windows.Forms.Label();
             this.label14 = new System.Windows.Forms.Label();
             this.priceNumeric = new System.Windows.Forms.NumericUpDown();
             this.label13 = new System.Windows.Forms.Label();
@@ -71,7 +72,6 @@
             this.label10 = new System.Windows.Forms.Label();
             this.label11 = new System.Windows.Forms.Label();
             this.label12 = new System.Windows.Forms.Label();
-            this.label15 = new System.Windows.Forms.Label();
             this.tabControl1.SuspendLayout();
             this.viewMenuTab.SuspendLayout();
             this.addMenuTab.SuspendLayout();
@@ -185,6 +185,15 @@
             this.addMenuTab.Size = new System.Drawing.Size(1797, 911);
             this.addMenuTab.TabIndex = 0;
             this.addMenuTab.Text = "Add Item";
+            // 
+            // label15
+            // 
+            this.label15.AutoSize = true;
+            this.label15.Location = new System.Drawing.Point(584, 69);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(44, 15);
+            this.label15.TabIndex = 13;
+            this.label15.Text = "label15";
             // 
             // label14
             // 
@@ -554,15 +563,6 @@
             this.label12.TabIndex = 0;
             this.label12.Text = "Delete Categories";
             // 
-            // label15
-            // 
-            this.label15.AutoSize = true;
-            this.label15.Location = new System.Drawing.Point(584, 69);
-            this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(44, 15);
-            this.label15.TabIndex = 13;
-            this.label15.Text = "label15";
-            // 
             // MenuForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -571,6 +571,7 @@
             this.Controls.Add(this.tabControl1);
             this.Name = "MenuForm";
             this.Text = "MenuForm";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.MenuForm_FormClosed);
             this.tabControl1.ResumeLayout(false);
             this.viewMenuTab.ResumeLayout(false);
             this.viewMenuTab.PerformLayout();
