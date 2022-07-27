@@ -12,7 +12,7 @@ using RestaurantOrderSystem.Data;
 namespace RestaurantOrderSystem.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20220725202233_init")]
+    [Migration("20220726144141_init")]
     partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
