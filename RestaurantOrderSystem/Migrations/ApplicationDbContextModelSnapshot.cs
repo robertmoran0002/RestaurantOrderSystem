@@ -188,9 +188,6 @@ namespace RestaurantOrderSystem.Migrations
                     b.Property<int>("OrderId")
                         .HasColumnType("int");
 
-                    b.Property<int>("OrderMainOrderId")
-                        .HasColumnType("int");
-
                     b.Property<int>("OrderNumber")
                         .HasColumnType("int");
 
@@ -201,7 +198,7 @@ namespace RestaurantOrderSystem.Migrations
 
                     b.HasIndex("LocationId");
 
-                    b.HasIndex("OrderMainOrderId");
+                    b.HasIndex("OrderId");
 
                     b.ToTable("Payments");
                 });
@@ -277,7 +274,7 @@ namespace RestaurantOrderSystem.Migrations
 
                     b.HasOne("RestaurantOrderSystem.Models.OrderMain", "OrderMain")
                         .WithMany()
-                        .HasForeignKey("OrderMainOrderId")
+                        .HasForeignKey("OrderId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 

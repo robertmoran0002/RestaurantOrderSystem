@@ -135,7 +135,7 @@ namespace RestaurantOrderSystem.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     OrderId = table.Column<int>(type: "int", nullable: false),
                     LocationId = table.Column<int>(type: "int", nullable: false),
-                    OrderMainOrderId = table.Column<int>(type: "int", nullable: false),
+                    //OrderMainOrderId = table.Column<int>(type: "int", nullable: false),
                     Method = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Amount = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     PaymentTimeStamp = table.Column<DateTime>(type: "datetime2", nullable: true),
@@ -151,8 +151,8 @@ namespace RestaurantOrderSystem.Migrations
                         principalColumn: "LocationId",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Payments_OrderMains_OrderMainOrderId",
-                        column: x => x.OrderMainOrderId,
+                        name: "FK_Payments_OrderMains_OrderId",
+                        column: x => x.OrderId,
                         principalTable: "OrderMains",
                         principalColumn: "OrderId",
                         onDelete: ReferentialAction.Cascade);
@@ -184,9 +184,9 @@ namespace RestaurantOrderSystem.Migrations
                 column: "LocationId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Payments_OrderMainOrderId",
+                name: "IX_Payments_OrderId",
                 table: "Payments",
-                column: "OrderMainOrderId");
+                column: "OrderId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)

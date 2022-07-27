@@ -9,11 +9,7 @@ namespace RestaurantOrderSystem.Models
         public int PaymentId { get; set; }
         [Required]
         public int OrderId { get; set; }
-        [ForeignKey("OrderId")]
         public int LocationId { get; set; }
-        [ForeignKey("LocationId")]
-        public Location Location { get; set; }
-        public OrderMain OrderMain { get; set; }
         public string Method { get; set; } = null!;
         public decimal Amount { get; set; }
         public DateTime? PaymentTimeStamp { get; set; }

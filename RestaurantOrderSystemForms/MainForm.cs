@@ -24,6 +24,7 @@ namespace RestaurantOrderSystemForms
 
         private void categoriesToolStripMenuItem_Click(object sender, EventArgs e)
         {
+
             if (!categoryForm.IsDisposed) 
             { 
                 categoryForm.MdiParent = this;
@@ -39,6 +40,7 @@ namespace RestaurantOrderSystemForms
 
         private async void menuItemsToolStripMenuItem_Click(object sender, EventArgs e)
         {
+
             if (!menuForm.IsDisposed) 
             { 
                 menuForm.MdiParent = this;

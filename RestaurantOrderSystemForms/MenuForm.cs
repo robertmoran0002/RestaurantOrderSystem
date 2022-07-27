@@ -124,7 +124,7 @@ namespace RestaurantOrderSystemForms
             {
                 if (category.CategoryName == categoryCombo.SelectedItem.ToString() && categoryCombo.SelectedItem != null)
                 {
-                    menu.CategoryId = category.CategoryId;   
+                    menu.CategoryId = category.CategoryId;
                     menu.Category.CategoryName = category.CategoryName;
                 }
             }
@@ -142,7 +142,7 @@ namespace RestaurantOrderSystemForms
 
                 await changeMenu(tempMenu);
                 await deleteCategory();
-                
+
             }
             catch (HttpRequestException error)
             {
@@ -171,8 +171,8 @@ namespace RestaurantOrderSystemForms
             Menu menu = new Menu();
 
             if (menuViewListBox.SelectedItem != null)
-            menu.ItemId = Int32.Parse(menuViewListBox.SelectedItem.ToString().Trim()
-                .Remove(menuViewListBox.SelectedItem.ToString().IndexOf("N")).Substring("Id:".Length));
+                menu.ItemId = Int32.Parse(menuViewListBox.SelectedItem.ToString().Trim()
+                    .Remove(menuViewListBox.SelectedItem.ToString().IndexOf("N")).Substring("Id:".Length));
 
             try
             {
@@ -197,54 +197,55 @@ namespace RestaurantOrderSystemForms
                 //tabControl1.SelectedIndex = 2;
                 return;
             }
-            else{
-                    Menu menu = new Menu();
-                    string temp1;
-                    string temp2;
-                    menu.ItemId = Int32.Parse(menuViewListBox.SelectedItem.ToString().Trim()
-                        .Remove(menuViewListBox.SelectedItem.ToString().IndexOf("N")).Substring("Id:".Length));
+            else
+            {
+                Menu menu = new Menu();
+                string temp1;
+                string temp2;
+                menu.ItemId = Int32.Parse(menuViewListBox.SelectedItem.ToString().Trim()
+                    .Remove(menuViewListBox.SelectedItem.ToString().IndexOf("N")).Substring("Id:".Length));
 
-                    menu.Name = menuViewListBox.SelectedItem.ToString().Trim()
-                        .Remove(menuViewListBox.SelectedItem.ToString().LastIndexOf("Description:"));
-                    menu.Name = menu.Name
-                        .Remove(0, menuViewListBox.SelectedItem.ToString().IndexOf("Name:") + "Name: ".Length).Trim();
+                menu.Name = menuViewListBox.SelectedItem.ToString().Trim()
+                    .Remove(menuViewListBox.SelectedItem.ToString().LastIndexOf("Description:"));
+                menu.Name = menu.Name
+                    .Remove(0, menuViewListBox.SelectedItem.ToString().IndexOf("Name:") + "Name: ".Length).Trim();
 
-                    menu.Descrption = menuViewListBox.SelectedItem.ToString().Trim()
-                        .Remove(0, menuViewListBox.SelectedItem.ToString().IndexOf("Description:") + "Description:".Length).Substring(1);
-                    menu.Descrption = menu.Descrption
-                        .Remove(menu.Descrption.IndexOf("Notes:")).Trim();
+                menu.Descrption = menuViewListBox.SelectedItem.ToString().Trim()
+                    .Remove(0, menuViewListBox.SelectedItem.ToString().IndexOf("Description:") + "Description:".Length).Substring(1);
+                menu.Descrption = menu.Descrption
+                    .Remove(menu.Descrption.IndexOf("Notes:")).Trim();
 
 
-                    menu.Notes = menuViewListBox.SelectedItem.ToString().Trim()
-                        .Remove(0, menuViewListBox.SelectedItem.ToString().IndexOf("Notes:") + "Notes:".Length).Substring(1);
-                    menu.Notes = menu.Notes.Remove(menu.Notes.IndexOf("CategoryId:")).Trim();
+                menu.Notes = menuViewListBox.SelectedItem.ToString().Trim()
+                    .Remove(0, menuViewListBox.SelectedItem.ToString().IndexOf("Notes:") + "Notes:".Length).Substring(1);
+                menu.Notes = menu.Notes.Remove(menu.Notes.IndexOf("CategoryId:")).Trim();
 
-                    temp1 = menuViewListBox.SelectedItem.ToString().Trim()
-                        .Remove(0, menuViewListBox.SelectedItem.ToString().IndexOf("CategoryId:") + "CategoryId:".Length).Substring(1);
-                    temp1 = temp1.Remove(temp1.IndexOf("Price: $")).Trim();
-                    menu.CategoryId = Int32.Parse(temp1);
+                temp1 = menuViewListBox.SelectedItem.ToString().Trim()
+                    .Remove(0, menuViewListBox.SelectedItem.ToString().IndexOf("CategoryId:") + "CategoryId:".Length).Substring(1);
+                temp1 = temp1.Remove(temp1.IndexOf("Price: $")).Trim();
+                menu.CategoryId = Int32.Parse(temp1);
 
-                    temp2 = menuViewListBox.SelectedItem.ToString().Trim()
-                        .Remove(0, menuViewListBox.SelectedItem.ToString().IndexOf("Price: $") + "Price: $".Length).Substring(0);
-                    menu.Price = Convert.ToDecimal(temp2);
+                temp2 = menuViewListBox.SelectedItem.ToString().Trim()
+                    .Remove(0, menuViewListBox.SelectedItem.ToString().IndexOf("Price: $") + "Price: $".Length).Substring(0);
+                menu.Price = Convert.ToDecimal(temp2);
 
-                    foreach (var category in categories)
+                foreach (var category in categories)
+                {
+                    if (category.CategoryId == menu.CategoryId)
                     {
-                        if (category.CategoryId == menu.CategoryId)
-                        {
-                            menuUpCombo.SelectedItem = category.CategoryName;
-                        }
+                        menuUpCombo.SelectedItem = category.CategoryName;
                     }
-
-                    menuIdUpBox.Text = menu.ItemId.ToString();
-                    menuNameUpdateBox.Text = menu.Name;
-                    menuDescUpRBox.Text = menu.Descrption;
-                    menuNotesUpRBox.Text = menu.Notes;
-                    menuUpCombo.SelectedItem = menu.Category;
-                    menuUpNumeric.Value = menu.Price;
-                    await getAllCategories();
-                    tabControl1.SelectedIndex = 2;
                 }
+
+                menuIdUpBox.Text = menu.ItemId.ToString();
+                menuNameUpdateBox.Text = menu.Name;
+                menuDescUpRBox.Text = menu.Descrption;
+                menuNotesUpRBox.Text = menu.Notes;
+                menuUpCombo.SelectedItem = menu.Category;
+                menuUpNumeric.Value = menu.Price;
+                await getAllCategories();
+                tabControl1.SelectedIndex = 2;
+            }
         }
 
         private async void menuUpdateButton_Click(object sender, EventArgs e)
@@ -297,9 +298,9 @@ namespace RestaurantOrderSystemForms
         private async Task changeMenu(Menu correctMenu)
         {
             tempCatId = correctMenu.CategoryId;
-            foreach(var item in categories)
+            foreach (var item in categories)
             {
-                if(categoryCombo.SelectedItem.ToString() == item.CategoryName)
+                if (categoryCombo.SelectedItem.ToString() == item.CategoryName)
                 {
                     correctMenu.CategoryId = item.CategoryId;
                     correctMenu.Category.CategoryId = item.CategoryId;

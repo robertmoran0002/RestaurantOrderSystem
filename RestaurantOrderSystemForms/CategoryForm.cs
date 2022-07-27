@@ -18,7 +18,7 @@ namespace RestaurantOrderSystemForms
         public CategoryForm()
         {
             InitializeComponent();
-        } 
+        }
 
         private async void categoryPostButton_Click(object sender, EventArgs e)
         {
@@ -77,6 +77,7 @@ namespace RestaurantOrderSystemForms
         private void catUpdateButton_Click(object sender, EventArgs e)
         {
             MenuCategory menuCat = new MenuCategory();
+
             if (menuCatViewListBox.SelectedItem == null) 
             {
                 MessageBox.Show("Please select an item!");

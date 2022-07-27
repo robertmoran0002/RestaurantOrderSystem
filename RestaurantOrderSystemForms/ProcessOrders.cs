@@ -21,7 +21,7 @@ namespace RestaurantOrderSystemForms
 
         List<OrderMain> incompleteOrders = new List<OrderMain>();
         public static List<Menu> kitchenMenu = new List<Menu>();
-        
+
         int selectedIndex;
         //int location;
 
@@ -60,7 +60,7 @@ namespace RestaurantOrderSystemForms
             orderQueue.Refresh();
             incompleteOrders.OrderBy(x => x.DateTimePlaced);
 
-            foreach(var order in incompleteOrders)
+            foreach (var order in incompleteOrders)
             {
                 Menu tempMenu = new Menu();
                 tempMenu.ItemId = order.OrderId;
@@ -118,8 +118,8 @@ namespace RestaurantOrderSystemForms
             string temp;
             selectedIndex = orderQueue.SelectedIndex;
             temp = orderQueue.SelectedItem.ToString();
-            temp = temp.Remove(0,temp.IndexOf("OrderID:")).Substring(8).Trim();
-            
+            temp = temp.Remove(0, temp.IndexOf("OrderID:")).Substring(8).Trim();
+
             return Int32.Parse(temp);
         }
 
@@ -150,14 +150,14 @@ namespace RestaurantOrderSystemForms
                     orderMain = order;
                     orderMain.OrderStatus = orderStatus;
                     orderMain.DateTimeComplete = DateTime.Now;
-                    orderMain.Menu = menu;
+                    //orderMain.Menu = menu;
                 }
             }
             try
             {
                 HttpResponseMessage response = await MainForm.client.PutAsJsonAsync($"api/OrderMains/{orderId}", orderMain);
                 response.EnsureSuccessStatusCode();
-                if(orderStatus == "Unpaid")
+                if (orderStatus == "Unpaid")
                     MessageBox.Show("Order Complete.");
                 if (orderStatus == "Cancelled")
                     MessageBox.Show("Order Cancelled.");
