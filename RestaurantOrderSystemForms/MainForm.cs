@@ -24,12 +24,13 @@ namespace RestaurantOrderSystemForms
 
         private void categoriesToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (!categoryForm.IsDisposed)
-            {
+
+            if (!categoryForm.IsDisposed) 
+            { 
                 categoryForm.MdiParent = this;
                 categoryForm.Show();
             }
-            else
+            else 
             {
                 categoryForm.Dispose();
                 categoryForm = new CategoryForm();
@@ -39,25 +40,26 @@ namespace RestaurantOrderSystemForms
 
         private async void menuItemsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (!menuForm.IsDisposed)
-            {
+
+            if (!menuForm.IsDisposed) 
+            { 
                 menuForm.MdiParent = this;
                 await menuForm.getAllCategories();
                 menuForm.fillDropdown();
                 menuForm.Show();
             }
-            else
-            {
+            else 
+            { 
                 menuForm.Dispose();
                 menuForm = new MenuForm();
-                menuItemsToolStripMenuItem_Click(sender, e);
+                menuItemsToolStripMenuItem_Click(sender,e);
             }
         }
 
         private async void newOrderToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (!newOrderForm.IsDisposed)
-            {
+            if (!newOrderForm.IsDisposed) 
+            { 
                 await newOrderForm.getAllMenu();
                 await newOrderForm.getAllCategories();
                 newOrderForm.fillMenuView();
@@ -65,7 +67,7 @@ namespace RestaurantOrderSystemForms
                 newOrderForm.MdiParent = this;
                 newOrderForm.Show();
             }
-            else
+            else 
             {
                 newOrderForm.Dispose();
                 newOrderForm = new NewOrder();
@@ -75,15 +77,15 @@ namespace RestaurantOrderSystemForms
 
         private void processOrdersToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (!processOrders.IsDisposed)
-            {
+            if (!processOrders.IsDisposed) 
+            { 
                 processOrders.MdiParent = this;
                 getAllMenu(ProcessOrders.kitchenMenu);
                 processOrders.Show();
                 //ProcessOrders.SetPositions(processOrders);
 
             }
-            else
+            else 
             {
                 processOrders.Dispose();
                 processOrders = new ProcessOrders();

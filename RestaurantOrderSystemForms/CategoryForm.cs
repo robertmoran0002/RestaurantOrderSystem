@@ -77,7 +77,8 @@ namespace RestaurantOrderSystemForms
         private void catUpdateButton_Click(object sender, EventArgs e)
         {
             MenuCategory menuCat = new MenuCategory();
-            if (menuCatViewListBox.SelectedItem == null)
+
+            if (menuCatViewListBox.SelectedItem == null) 
             {
                 MessageBox.Show("Please select an item!");
                 return;
@@ -130,7 +131,7 @@ namespace RestaurantOrderSystemForms
         {
             MenuCategory menuCat = new MenuCategory();
 
-            if (menuCatViewListBox.SelectedItem == null)
+            if (menuCatViewListBox.SelectedItem == null) 
             {
                 MessageBox.Show("Please select an item");
                 return;

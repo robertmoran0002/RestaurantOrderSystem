@@ -250,7 +250,7 @@ namespace RestaurantOrderSystemForms
 
         private async void menuUpdateButton_Click(object sender, EventArgs e)
         {
-            if (menuIdUpBox.Text == "" || !Char.IsDigit(menuIdUpBox.Text, 0))
+            if (menuIdUpBox.Text == "" || !Char.IsDigit(menuIdUpBox.Text,0)) 
             {
                 MessageBox.Show("Please enter an id!");
                 return;
