@@ -25,10 +25,10 @@ namespace RestaurantOrderSystem.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Menu>>> GetMenus()
         {
-          if (_context.Menus == null)
-          {
-              return NotFound();
-          }
+            if (_context.Menus == null)
+            {
+                return NotFound();
+            }
             return await _context.Menus.ToListAsync();
         }
 
@@ -36,10 +36,10 @@ namespace RestaurantOrderSystem.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<Menu>> GetMenu(int id)
         {
-          if (_context.Menus == null)
-          {
-              return NotFound();
-          }
+            if (_context.Menus == null)
+            {
+                return NotFound();
+            }
             var menu = await _context.Menus.FindAsync(id);
 
             if (menu == null)
@@ -86,10 +86,10 @@ namespace RestaurantOrderSystem.Controllers
         [HttpPost]
         public async Task<ActionResult<Menu>> PostMenu(Menu menu)
         {
-          if (_context.Menus == null)
-          {
-              return Problem("Entity set 'ApplicationDbContext.Menus'  is null.");
-          }
+            if (_context.Menus == null)
+            {
+                return Problem("Entity set 'ApplicationDbContext.Menus'  is null.");
+            }
             //_context.Menus.Attach(menu.Category);
             //_context.Entry(menu.Category).State = EntityState.Unchanged;
             _context.Menus.Add(menu);

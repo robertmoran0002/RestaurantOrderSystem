@@ -13,10 +13,7 @@ namespace RestaurantOrderSystem.Models
         public int City { get; set; }
         public string StateProvince { get; set; }
         public long PostalCode { get; set; }
-
         public int CountryId { get; set; }
 
-        [ForeignKey("CountryId")]
-        public Country Country { get; set; }
     }
 }

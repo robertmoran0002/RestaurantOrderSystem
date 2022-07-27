@@ -18,7 +18,7 @@ namespace RestaurantOrderSystemForms
         public CategoryForm()
         {
             InitializeComponent();
-        } 
+        }
 
         private async void categoryPostButton_Click(object sender, EventArgs e)
         {
@@ -76,8 +76,13 @@ namespace RestaurantOrderSystemForms
 
         private void catUpdateButton_Click(object sender, EventArgs e)
         {
-            //A try catch is needed here
             MenuCategory menuCat = new MenuCategory();
+            if (menuCatViewListBox.SelectedItem == null)
+            {
+                MessageBox.Show("Please select an item!");
+                return;
+            }
+
             menuCat.CategoryId = Int32.Parse(menuCatViewListBox.SelectedItem.ToString().Trim()
                 .Remove(menuCatViewListBox.SelectedItem.ToString().IndexOf("N")).Substring("Id:".Length));
             menuCat.CategoryName = menuCatViewListBox.SelectedItem.ToString().Trim()
@@ -87,6 +92,7 @@ namespace RestaurantOrderSystemForms
             menuCat.CategoryDescription = menuCatViewListBox.SelectedItem.ToString().Trim()
                 .Remove(0, menuCatViewListBox.SelectedItem.ToString().LastIndexOf(":")).Substring(2);
 
+
             catUpdateIdField.Text = menuCat.CategoryId.ToString();
             catNameUpdateField.Text = menuCat.CategoryName.ToString();
             catUpdateDescRBox.Text = menuCat.CategoryDescription.ToString();
@@ -95,6 +101,11 @@ namespace RestaurantOrderSystemForms
 
         private async void updateCatButton_Click(object sender, EventArgs e)
         {
+            if (catUpdateIdField.Text == "" || !Char.IsDigit(catUpdateIdField.Text, 0))
+            {
+                MessageBox.Show("Please enter an id!");
+                return;
+            }
             MenuCategory menuCat = new MenuCategory();
             menuCat.CategoryId = Int32.Parse(catUpdateIdField.Text);
             menuCat.CategoryName = catNameUpdateField.Text;
@@ -118,6 +129,12 @@ namespace RestaurantOrderSystemForms
         private async void catDeleteButton_Click(object sender, EventArgs e)
         {
             MenuCategory menuCat = new MenuCategory();
+
+            if (menuCatViewListBox.SelectedItem == null)
+            {
+                MessageBox.Show("Please select an item");
+                return;
+            }
             menuCat.CategoryId = Int32.Parse(menuCatViewListBox.SelectedItem.ToString().Trim()
                 .Remove(menuCatViewListBox.SelectedItem.ToString().IndexOf("N")).Substring("Id:".Length));
 

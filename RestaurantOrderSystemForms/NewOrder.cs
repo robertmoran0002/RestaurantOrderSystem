@@ -38,6 +38,8 @@ namespace RestaurantOrderSystemForms
         private decimal taxAmount = 0;
         private decimal tipAmount = 0;
 
+
+        // Pull menu from database to populate a list of available items.
         public async Task getAllMenu()
         {
             menu.Clear();
@@ -65,10 +67,11 @@ namespace RestaurantOrderSystemForms
             }
         }
 
+        // Use the compiled list of items to fill the screen with available items, separated by Category information.
         public void fillMenuView()
         {
             string categoryName;
-            foreach(var item in menu)
+            foreach (var item in menu)
             {
                 foreach (var category in categories)
                 {
@@ -82,6 +85,7 @@ namespace RestaurantOrderSystemForms
             }
         }
 
+        // Pull categories from the database to compile a list of available categories.
         public async Task getAllCategories()
         {
             categories.Clear();
@@ -109,36 +113,40 @@ namespace RestaurantOrderSystemForms
         }
 
 
-
+        // When refresh menu is clicked, perform these actions
         private async void menuButton_Click(object sender, EventArgs e)
         {
-            menuViewListBox.Items.Clear();
-            await getAllCategories();
-            await getAllMenu();
-            fillMenuView();
-            menuViewListBox.Refresh();
+            menuViewListBox.Items.Clear();  // Clear current view
+            await getAllCategories();       // Populate category listing
+            await getAllMenu();             // Populate item listing
+            fillMenuView();                 // Create new view
+            menuViewListBox.Refresh();      // Redraw borders
         }
 
+        // When Add button is clicked, perform these actions
         private void addButton_Click(object sender, EventArgs e)
         {
-            if (menuViewListBox.SelectedItems.Count != 0)
+            if (menuViewListBox.SelectedItems.Count != 0)  // Ensure an item has been selected from the menu view
             {
                 OrderMain orderItem = new OrderMain();
                 string menuItem;
                 string itemId = "";
                 string price = "";
 
-                menuItem = menuViewListBox.SelectedItem.ToString();
-                menuItem = menuItem.Remove(menuItem.IndexOf("Name:")).Substring(3).Trim();
+                menuItem = menuViewListBox.SelectedItem.ToString();  // Get selected Item name
+                menuItem = menuItem.Remove(menuItem.IndexOf("Name:")).Substring(3).Trim(); // Trim ecxess characters from menu view
 
+                // Get relevent item information
                 orderItem.ItemId = Int32.Parse(menuItem);
                 orderItem.Quantity = Int32.Parse(quantityBox.Text);
                 orderItem.DateTimePlaced = DateTime.Now;
                 orderItem.OrderStatus = "Placed";
                 orderItem.OrderNumber = 0;
 
+                // Add item to current order
                 placeOrder.Add(orderItem);
 
+                // Calculate item subtotal based on item price and quantity ordered.
                 foreach (var item in menu)
                 {
                     if (item.ItemId == Int32.Parse(menuItem))
@@ -151,26 +159,31 @@ namespace RestaurantOrderSystemForms
                     }
                 }
 
+                // Display current list of ordered items and current subtotal
                 totalBox.Text = total.ToString();
                 orderViewListBox.Items.Add($"ID: {itemId} \t Name: {menuItem} \t Quantity: {quantityBox.Text} \t Price: ${price}");
             }
         }
 
+        // When Remove Item button is clicked, perform these actions
         private void removeButton_Click(object sender, EventArgs e)
         {
-            if (orderViewListBox.SelectedItems.Count != 0)
+            if (orderViewListBox.SelectedItems.Count != 0)  // Ensure an item has been selected from the menu view
             {
                 string menuItem;
                 string price;
                 int ID;
 
+                // Get the item price and trim excess text
                 price = orderViewListBox.SelectedItem.ToString();
                 price = price.Remove(0, price.IndexOf("Price: $")).Substring(8).Trim();
 
+                // Get item name, remove excess text, parse for item id
                 menuItem = orderViewListBox.SelectedItem.ToString();
                 menuItem = menuItem.Remove(menuItem.IndexOf("Name:")).Substring(3).Trim();
                 ID = Int32.Parse(menuItem);
 
+                // Adjust order subtotal and list of ordered items
                 foreach (OrderMain item in placeOrder.ToList())
                 {
                     if (item.ItemId == ID)
@@ -182,18 +195,20 @@ namespace RestaurantOrderSystemForms
                     }
                 }
 
+                // Display new list of ordered items and current subtotal
                 totalBox.Text = total.ToString();
                 orderViewListBox.Items.Remove(orderViewListBox.SelectedItem);
             }
         }
 
+        // Populate list of current orders.
         private async Task getAllOrders()
         {
-            orderMaster.Clear();
+            orderMaster.Clear(); // Clear the current list.
             HttpResponseMessage response;
             try
             {
-                response = await MainForm.client.GetAsync("api/OrderMains");
+                response = await MainForm.client.GetAsync("api/OrderMains"); // Get list of all orders
                 response.EnsureSuccessStatusCode();
             }
             catch (HttpRequestException error)
@@ -208,18 +223,21 @@ namespace RestaurantOrderSystemForms
                 int x = 0;
                 foreach (var order in orders)
                 {
+                    // Add relevant orders to the new list, discard ones that are no longer needed.
                     if (order.OrderNumber > x) x = order.OrderNumber;
                     orderMaster.Add(order);
                 }
-                currentOrderNumber = x + 1;
+                currentOrderNumber = x + 1;  // Increment counter for the current order number.
             }
         }
 
+        // When Submit Order button is clicked, perform these actions
         private async void reviewButton_Click(object sender, EventArgs e)
         {
-            if (placeOrder.Count != 0)
-                await postOrders();
+            if (placeOrder.Count != 0)  // Ensure there is no other order to be places
+                await postOrders();     // Place current order
 
+            // Clear current order and subtotal views, reset values to defaults.
             placeOrder.Clear();
             orderViewListBox.Items.Clear();
             total = 0;
@@ -228,7 +246,7 @@ namespace RestaurantOrderSystemForms
 
         private async Task postOrders()
         {
-            await getAllOrders();
+            await getAllOrders();  // Pull currently placed orders
 
             Menu menu = new Menu();
             MenuCategory category = new MenuCategory();
@@ -239,10 +257,12 @@ namespace RestaurantOrderSystemForms
             category.CategoryName = "string";
             category.CategoryDescription = "string";
 
+            // Check list of pending orders
             foreach (var order in placeOrder)
             {
                 OrderMain newOrder = new OrderMain();
 
+                // Get relevant information from each pending order
                 newOrder.OrderStatus = order.OrderStatus;
                 newOrder.DateTimePlaced = DateTime.Now;
                 newOrder.OrderStatus = order.OrderStatus;
@@ -252,11 +272,12 @@ namespace RestaurantOrderSystemForms
                 newOrder.ItemId = order.ItemId;
                 tempItemId = newOrder.ItemId;
 
-                newOrder.Menu = menu;
-                newOrder.Menu.Category = category;
+                //newOrder.Menu = menu;
+                //newOrder.Menu.Category = category;
 
                 try
                 {
+                    // Add pending order to database
                     HttpResponseMessage response = await MainForm.client.PostAsJsonAsync("api/OrderMains", newOrder);
                     response.EnsureSuccessStatusCode();
 
@@ -264,9 +285,11 @@ namespace RestaurantOrderSystemForms
                     {
                         tempOrder = await response.Content.ReadFromJsonAsync<OrderMain>();
                     }
-                    await UpdateOrder(tempOrder);
-                    await MainForm.DeleteMenu(tempOrder.Menu.ItemId);
-                    await MainForm.DeleteCategory(tempOrder.Menu.Category.CategoryId);
+                    //await UpdateOrder(tempOrder); // Update list of current orders.
+
+                    // Remove placeholder information
+                    //await MainForm.DeleteMenu(tempOrder.Menu.ItemId);
+                    //await MainForm.DeleteCategory(tempOrder.Menu.Category.CategoryId);
 
                 }
                 catch (HttpRequestException error)
@@ -279,6 +302,7 @@ namespace RestaurantOrderSystemForms
             MessageBox.Show("Order submitted succesfully.");
         }
 
+        // Add new order to database
         private async Task UpdateOrder(OrderMain orderUpdate)
         {
             orderUpdate.ItemId = tempItemId;
@@ -296,6 +320,7 @@ namespace RestaurantOrderSystemForms
             }
         }
 
+        // Method to readjust screen layout
         private void SetPositions()
         {
             menuViewListBox.Width = (int)(this.Width * .70);
@@ -311,17 +336,20 @@ namespace RestaurantOrderSystemForms
             toPayButton.Left = menuViewListBox.Right - toPayButton.Width;
         }
 
+        // When NewOrder element is manually resized, adjust positions of other elements
         private void NewOrder_SizeChanged(object sender, EventArgs e)
         {
             SetPositions();
         }
 
+        // Deprecated method
         private async void button2_Click(object sender, EventArgs e)
         {
             await FillPayOrders();
             tabControl1.SelectedIndex = 1;
         }
 
+        // Deprecated method
         private void button2_Click_1(object sender, EventArgs e)
         {
             tabControl1.SelectedIndex = 0;
@@ -329,16 +357,17 @@ namespace RestaurantOrderSystemForms
 
         private async Task FillPayOrders()
         {
-            payOrderListBox.Items.Clear();
-            payOrders.Clear();
-            await getAllOrders();
+            payOrderListBox.Items.Clear();  // Clear view of orders pending payment
+            payOrders.Clear();              // Clear log of orders pending payment
+            await getAllOrders();           // Pull all orders
 
             orderMaster.ForEach(x => {
                 if (x.OrderStatus == "Unpaid")
-                    payOrders.Add(x);
+                    payOrders.Add(x);       // Add orders currently pending payment to list
             });
-            payOrders.OrderBy(x => x.DateTimeComplete).GroupBy(x => x.OrderNumber);
+            payOrders.OrderBy(x => x.DateTimeComplete).GroupBy(x => x.OrderNumber); // Organize list
 
+            // Add list of unpaid orders to view with formatting
             foreach (var order in payOrders)
             {
                 Menu tempMenu = new Menu();
@@ -357,25 +386,27 @@ namespace RestaurantOrderSystemForms
             }
         }
 
+        // When item in orders pending payment view is clicked, perform these actions
         private void payOrderListBox_Click(object sender, EventArgs e)
         {
-            finalOrders.Clear();
+            finalOrders.Clear();    // Clear list of finalized orders
+
             List<string> tempOrderList = new List<string>();
             totalGross = 0;
             totalNet = 0;
             taxAmount = 0;
 
-            if (payOrderListBox.SelectedItems.Count != 0)
+            if (payOrderListBox.SelectedItems.Count != 0) // Ensure an item in the view has been selected
             {
-                payOrderInfoBox.Items.Clear();
+                payOrderInfoBox.Items.Clear(); // Clear current unpaid order view
 
-                foreach(var item in payOrderListBox.Items)
+                foreach (var item in payOrderListBox.Items)
                 {
                     if (item != null)
-                        tempOrderList.Add(item.ToString());
+                        tempOrderList.Add(item.ToString());  // Create list of orders to calculate
                 }
 
-                foreach(string item in tempOrderList)
+                foreach (string item in tempOrderList)
                 {
                     string tempId;
                     string tempNum;
@@ -391,6 +422,7 @@ namespace RestaurantOrderSystemForms
                     int quantity;
                     int orderId;
 
+                    // Prepare relevant information
                     tempId = item.ToString().Remove(item.ToString().IndexOf("ItemID:")).Substring(8).Trim();
 
                     orderId = Int32.Parse(item.ToString().Remove(item.IndexOf("ItemID:")).Substring(9).Trim());
@@ -407,7 +439,9 @@ namespace RestaurantOrderSystemForms
                     name = item.Remove(0, item.IndexOf("Name:")).Substring(5).Trim();
                     name = name.Remove(name.IndexOf("Quantity:")).Trim();
 
-                    if (selectedNum == ordNum) {
+                    // Tabulate order total
+                    if (selectedNum == ordNum)
+                    {
 
                         payOrderInfoBox.Items.Add($"ItemID: {itemId} \t Name: {name} \t Quantity: {quantity} \t Price: ${price}");
                         totalGross += price * quantity;
@@ -418,31 +452,38 @@ namespace RestaurantOrderSystemForms
                         taxBox.Text = taxAmount.ToString();
                         amountBox.Text = totalNet.ToString();
 
-                        foreach(var b in payOrders)
+                        foreach (var b in payOrders)
                         {
                             if (b.OrderId == orderId)
                                 finalOrders.Add(b);
                         }
-                            
+
                     }
                 }
             }
         }
 
+        // Deprecated
         private void textBox2_TextChanged(object sender, EventArgs e)
         {
         }
+
+        // Deprecated
         private void orderSelectTab_Click(object sender, EventArgs e)
         {
         }
+
+        // Deprecated
         private void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
         {
         }
 
+        // Deprecated
         private void tipBox_KeyUp(object sender, KeyEventArgs e)
         {
         }
 
+        // When key is released while focused on tipNumeric element, recalculate total due based on tip amount
         private void tipNumeric_KeyUp(object sender, KeyEventArgs e)
         {
             tipAmount = tipNumeric.Value;
@@ -451,6 +492,7 @@ namespace RestaurantOrderSystemForms
             amountBox.Text = totalNet.ToString();
         }
 
+        // When tipNumeric element is clicked, recalculate total due based on tip amount
         private void tipNumeric_Click(object sender, EventArgs e)
         {
             tipAmount = tipNumeric.Value;
@@ -459,6 +501,7 @@ namespace RestaurantOrderSystemForms
             amountBox.Text = totalNet.ToString();
         }
 
+        // Populate the dropdown for payment methods
         public void FillPayMethods()
         {
             methodCombo.Items.Clear();
@@ -466,10 +509,12 @@ namespace RestaurantOrderSystemForms
             methodCombo.Items.Add("Cash");
         }
 
+        // Process payment on finalized orders
         private async Task PaymentPost()
         {
             foreach (OrderMain order in finalOrders)
             {
+                // Prepare relevant details of each order
                 int count = finalOrders.Count();
                 Payment payment = new Payment();
                 Payment tempPaymentObject = new Payment();
@@ -510,25 +555,31 @@ namespace RestaurantOrderSystemForms
                 orderMain.OrderStatus = "string";
 
                 payment.Method = methodCombo.SelectedText.ToString();
+                //*** THIS IS A TEMPORARY FIX*** payment.Method should get its value from methodCombo
                 payment.Method = "Cash";
                 payment.Amount = totalNet;
                 payment.PaymentTimeStamp = DateTime.Now;
                 payment.OrderNumber = order.OrderNumber;
-                
-                payment.Location = location;
-                payment.Location.Country = country;
-                payment.Location.Country.Region = region;
-                payment.OrderMain = orderMain;
-                payment.OrderMain.Menu = menu;
-                payment.OrderMain.Menu.Category = category;
-                
+                payment.OrderId = order.OrderId;
+
+                //*** THIS IS A TEMPORARY FIX*** LocationId should be the store's location Id
+                payment.LocationId = 1;
+
+                //payment.Location = location;
+                //payment.Location.Country = country;
+                //payment.Location.Country.Region = region;
+                //payment.OrderMain = orderMain;
+                //payment.OrderMain.Menu = menu;
+                //payment.OrderMain.Menu.Category = category;
+
                 tempOrderId = order.OrderId;
 
-                order.Menu = menu;
-                order.Menu.Category = category;
+                //order.Menu = menu;
+                //order.Menu.Category = category;
 
                 try
                 {
+                    // Post payment record to database
                     HttpResponseMessage response = await MainForm.client.PostAsJsonAsync("api/Payments", payment);
                     response.EnsureSuccessStatusCode();
 
@@ -545,14 +596,17 @@ namespace RestaurantOrderSystemForms
                     order.DateTimeComplete = order.DateTimeComplete;
                     order.DateTimePlaced = order.DateTimePlaced;
 
-                    await UpdatePayment(tempPaymentObject);
+                    // Make relevant changes to order lists
+                    //await UpdatePayment(tempPaymentObject);
                     await SecondaryUpdateOrder(order);
-                    await MainForm.DeleteOrder(tempPaymentObject.OrderMain.OrderId);
-                    await MainForm.DeleteMenu(tempPaymentObject.OrderMain.Menu.ItemId);
-                    await MainForm.DeleteCategory(tempPaymentObject.OrderMain.Menu.Category.CategoryId);
-                    await MainForm.DeleteLocation(tempPaymentObject.Location.LocationId);
-                    await MainForm.DeleteCountry(tempPaymentObject.Location.Country.CountryId);
-                    await MainForm.DeleteRegion(tempPaymentObject.Location.Country.Region.RegionId);
+
+                    // Remove placeholder information
+                    //await MainForm.DeleteOrder(tempPaymentObject.OrderMain.OrderId);
+                    //await MainForm.DeleteMenu(tempPaymentObject.OrderMain.Menu.ItemId);
+                    //await MainForm.DeleteCategory(tempPaymentObject.OrderMain.Menu.Category.CategoryId);
+                    //await MainForm.DeleteLocation(tempPaymentObject.Location.LocationId);
+                    //await MainForm.DeleteCountry(tempPaymentObject.Location.Country.CountryId);
+                    //await MainForm.DeleteRegion(tempPaymentObject.Location.Country.Region.RegionId);
 
                     creditCardBox.Text = "";
                     taxBox.Text = "";
@@ -562,7 +616,7 @@ namespace RestaurantOrderSystemForms
                     totalNet = 0;
                     tipAmount = 0;
                     taxAmount = 0;
-                    await FillPayOrders();
+                    await FillPayOrders(); // Refresh list of unpaid orders
                 }
                 catch (HttpRequestException error)
                 {
@@ -572,6 +626,7 @@ namespace RestaurantOrderSystemForms
             }
         }
 
+        // Update payment record in database
         private async Task UpdatePayment(Payment payment)
         {
             payment.OrderId = tempOrderId;
@@ -589,6 +644,7 @@ namespace RestaurantOrderSystemForms
             }
         }
 
+        // Update order record in database
         private async Task SecondaryUpdateOrder(OrderMain order)
         {
             OrderMain orderMain = new OrderMain();
@@ -600,17 +656,17 @@ namespace RestaurantOrderSystemForms
             orderMain.DateTimePlaced = order.DateTimePlaced;
             orderMain.ItemId = order.ItemId;
 
-            Menu menu = new Menu();
-            MenuCategory category = new MenuCategory();
-            menu.Name = "string";
-            menu.Descrption = "string";
-            menu.Notes = "string";
-            menu.Price = 0;
-            category.CategoryName = "string";
-            category.CategoryDescription = "string";
+            //Menu menu = new Menu();
+            //MenuCategory category = new MenuCategory();
+            //menu.Name = "string";
+            //menu.Descrption = "string";
+            //menu.Notes = "string";
+            //menu.Price = 0;
+            //category.CategoryName = "string";
+            //category.CategoryDescription = "string";
 
-            orderMain.Menu = menu;
-            orderMain.Menu.Category = category;
+            //orderMain.Menu = menu;
+            //orderMain.Menu.Category = category;
 
             try
             {
@@ -625,11 +681,13 @@ namespace RestaurantOrderSystemForms
             }
         }
 
+        // Process order payment when Submit button is clicked
         private async void submit_Click(object sender, EventArgs e)
         {
             await PaymentPost();
         }
 
+        // Manually refresh list and view of unpaid orders
         private async void refreshPayButton_Click(object sender, EventArgs e)
         {
             await FillPayOrders();

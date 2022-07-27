@@ -9,8 +9,6 @@ namespace RestaurantOrderSystem.Models
         public int OrderId { get; set; }
         [Required]
         public int ItemId { get; set; }
-        [ForeignKey("ItemId")]
-        public Menu Menu { get; set; }
         public int Quantity { get; set; }
         public DateTime? DateTimePlaced { get; set; }
         public DateTime? DateTimeComplete { get; set; }

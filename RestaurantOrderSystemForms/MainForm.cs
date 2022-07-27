@@ -24,35 +24,71 @@ namespace RestaurantOrderSystemForms
 
         private void categoriesToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            categoryForm.MdiParent = this;
-            categoryForm.Show();
+            if (!categoryForm.IsDisposed)
+            {
+                categoryForm.MdiParent = this;
+                categoryForm.Show();
+            }
+            else
+            {
+                categoryForm.Dispose();
+                categoryForm = new CategoryForm();
+                categoriesToolStripMenuItem_Click(sender, e);
+            }
         }
 
         private async void menuItemsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            menuForm.MdiParent = this;
-            await menuForm.getAllCategories();
-            menuForm.fillDropdown();
-            menuForm.Show();
+            if (!menuForm.IsDisposed)
+            {
+                menuForm.MdiParent = this;
+                await menuForm.getAllCategories();
+                menuForm.fillDropdown();
+                menuForm.Show();
+            }
+            else
+            {
+                menuForm.Dispose();
+                menuForm = new MenuForm();
+                menuItemsToolStripMenuItem_Click(sender, e);
+            }
         }
 
         private async void newOrderToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            await newOrderForm.getAllMenu();
-            await newOrderForm.getAllCategories();
-            newOrderForm.fillMenuView();
-            newOrderForm.FillPayMethods();
-            newOrderForm.MdiParent = this;
-            newOrderForm.Show();
+            if (!newOrderForm.IsDisposed)
+            {
+                await newOrderForm.getAllMenu();
+                await newOrderForm.getAllCategories();
+                newOrderForm.fillMenuView();
+                newOrderForm.FillPayMethods();
+                newOrderForm.MdiParent = this;
+                newOrderForm.Show();
+            }
+            else
+            {
+                newOrderForm.Dispose();
+                newOrderForm = new NewOrder();
+                newOrderToolStripMenuItem_Click(sender, e);
+            }
         }
 
         private void processOrdersToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            if (!processOrders.IsDisposed)
+            {
+                processOrders.MdiParent = this;
+                getAllMenu(ProcessOrders.kitchenMenu);
+                processOrders.Show();
+                //ProcessOrders.SetPositions(processOrders);
 
-            processOrders.MdiParent = this;
-            getAllMenu(ProcessOrders.kitchenMenu);
-            processOrders.Show();
-            //ProcessOrders.SetPositions(processOrders);
+            }
+            else
+            {
+                processOrders.Dispose();
+                processOrders = new ProcessOrders();
+                processOrdersToolStripMenuItem_Click(sender, e);
+            }
         }
 
         public static async void getAllMenu(List<Menu> menuList)
