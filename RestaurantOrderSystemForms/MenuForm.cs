@@ -152,10 +152,6 @@ namespace RestaurantOrderSystemForms
                 {
                     tempMenu = await response.Content.ReadFromJsonAsync<Menu>();
                 }
-
-                await changeMenu(tempMenu);
-                await deleteCategory();
-                
             }
             catch (HttpRequestException error)
             {
