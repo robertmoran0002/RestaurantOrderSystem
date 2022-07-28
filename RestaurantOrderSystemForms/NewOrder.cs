@@ -71,7 +71,7 @@ namespace RestaurantOrderSystemForms
         public void fillMenuView()
         {
             string categoryName;
-            foreach(var item in menu)
+            foreach (var item in menu)
             {
                 foreach (var category in categories)
                 {
@@ -272,8 +272,8 @@ namespace RestaurantOrderSystemForms
                 newOrder.ItemId = order.ItemId;
                 tempItemId = newOrder.ItemId;
 
-                newOrder.Menu = menu;
-                newOrder.Menu.Category = category;
+                //newOrder.Menu = menu;
+                //newOrder.Menu.Category = category;
 
                 try
                 {
@@ -285,11 +285,11 @@ namespace RestaurantOrderSystemForms
                     {
                         tempOrder = await response.Content.ReadFromJsonAsync<OrderMain>();
                     }
-                    await UpdateOrder(tempOrder); // Update list of current orders.
+                    //await UpdateOrder(tempOrder); // Update list of current orders.
 
                     // Remove placeholder information
-                    await MainForm.DeleteMenu(tempOrder.Menu.ItemId);
-                    await MainForm.DeleteCategory(tempOrder.Menu.Category.CategoryId);
+                    //await MainForm.DeleteMenu(tempOrder.Menu.ItemId);
+                    //await MainForm.DeleteCategory(tempOrder.Menu.Category.CategoryId);
 
                 }
                 catch (HttpRequestException error)
@@ -400,13 +400,13 @@ namespace RestaurantOrderSystemForms
             {
                 payOrderInfoBox.Items.Clear(); // Clear current unpaid order view
 
-                foreach(var item in payOrderListBox.Items)
+                foreach (var item in payOrderListBox.Items)
                 {
                     if (item != null)
                         tempOrderList.Add(item.ToString());  // Create list of orders to calculate
                 }
 
-                foreach(string item in tempOrderList)
+                foreach (string item in tempOrderList)
                 {
                     string tempId;
                     string tempNum;
@@ -440,7 +440,8 @@ namespace RestaurantOrderSystemForms
                     name = name.Remove(name.IndexOf("Quantity:")).Trim();
 
                     // Tabulate order total
-                    if (selectedNum == ordNum) {
+                    if (selectedNum == ordNum)
+                    {
 
                         payOrderInfoBox.Items.Add($"ItemID: {itemId} \t Name: {name} \t Quantity: {quantity} \t Price: ${price}");
                         totalGross += price * quantity;
@@ -451,12 +452,12 @@ namespace RestaurantOrderSystemForms
                         taxBox.Text = taxAmount.ToString();
                         amountBox.Text = totalNet.ToString();
 
-                        foreach(var b in payOrders)
+                        foreach (var b in payOrders)
                         {
                             if (b.OrderId == orderId)
                                 finalOrders.Add(b);
                         }
-                            
+
                     }
                 }
             }
@@ -554,22 +555,27 @@ namespace RestaurantOrderSystemForms
                 orderMain.OrderStatus = "string";
 
                 payment.Method = methodCombo.SelectedText.ToString();
+                //*** THIS IS A TEMPORARY FIX*** payment.Method should get its value from methodCombo
                 payment.Method = "Cash";
                 payment.Amount = totalNet;
                 payment.PaymentTimeStamp = DateTime.Now;
                 payment.OrderNumber = order.OrderNumber;
-                
-                payment.Location = location;
-                payment.Location.Country = country;
-                payment.Location.Country.Region = region;
-                payment.OrderMain = orderMain;
-                payment.OrderMain.Menu = menu;
-                payment.OrderMain.Menu.Category = category;
-                
+                payment.OrderId = order.OrderId;
+
+                //*** THIS IS A TEMPORARY FIX*** LocationId should be the store's location Id
+                payment.LocationId = 1;
+
+                //payment.Location = location;
+                //payment.Location.Country = country;
+                //payment.Location.Country.Region = region;
+                //payment.OrderMain = orderMain;
+                //payment.OrderMain.Menu = menu;
+                //payment.OrderMain.Menu.Category = category;
+
                 tempOrderId = order.OrderId;
 
-                order.Menu = menu;
-                order.Menu.Category = category;
+                //order.Menu = menu;
+                //order.Menu.Category = category;
 
                 try
                 {
@@ -591,16 +597,16 @@ namespace RestaurantOrderSystemForms
                     order.DateTimePlaced = order.DateTimePlaced;
 
                     // Make relevant changes to order lists
-                    await UpdatePayment(tempPaymentObject);
+                    //await UpdatePayment(tempPaymentObject);
                     await SecondaryUpdateOrder(order);
 
                     // Remove placeholder information
-                    await MainForm.DeleteOrder(tempPaymentObject.OrderMain.OrderId);
-                    await MainForm.DeleteMenu(tempPaymentObject.OrderMain.Menu.ItemId);
-                    await MainForm.DeleteCategory(tempPaymentObject.OrderMain.Menu.Category.CategoryId);
-                    await MainForm.DeleteLocation(tempPaymentObject.Location.LocationId);
-                    await MainForm.DeleteCountry(tempPaymentObject.Location.Country.CountryId);
-                    await MainForm.DeleteRegion(tempPaymentObject.Location.Country.Region.RegionId);
+                    //await MainForm.DeleteOrder(tempPaymentObject.OrderMain.OrderId);
+                    //await MainForm.DeleteMenu(tempPaymentObject.OrderMain.Menu.ItemId);
+                    //await MainForm.DeleteCategory(tempPaymentObject.OrderMain.Menu.Category.CategoryId);
+                    //await MainForm.DeleteLocation(tempPaymentObject.Location.LocationId);
+                    //await MainForm.DeleteCountry(tempPaymentObject.Location.Country.CountryId);
+                    //await MainForm.DeleteRegion(tempPaymentObject.Location.Country.Region.RegionId);
 
                     creditCardBox.Text = "";
                     taxBox.Text = "";
@@ -650,17 +656,17 @@ namespace RestaurantOrderSystemForms
             orderMain.DateTimePlaced = order.DateTimePlaced;
             orderMain.ItemId = order.ItemId;
 
-            Menu menu = new Menu();
-            MenuCategory category = new MenuCategory();
-            menu.Name = "string";
-            menu.Descrption = "string";
-            menu.Notes = "string";
-            menu.Price = 0;
-            category.CategoryName = "string";
-            category.CategoryDescription = "string";
+            //Menu menu = new Menu();
+            //MenuCategory category = new MenuCategory();
+            //menu.Name = "string";
+            //menu.Descrption = "string";
+            //menu.Notes = "string";
+            //menu.Price = 0;
+            //category.CategoryName = "string";
+            //category.CategoryDescription = "string";
 
-            orderMain.Menu = menu;
-            orderMain.Menu.Category = category;
+            //orderMain.Menu = menu;
+            //orderMain.Menu.Category = category;
 
             try
             {

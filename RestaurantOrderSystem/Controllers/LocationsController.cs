@@ -25,10 +25,10 @@ namespace RestaurantOrderSystem.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Location>>> GetLocations()
         {
-          if (_context.Locations == null)
-          {
-              return NotFound();
-          }
+            if (_context.Locations == null)
+            {
+                return NotFound();
+            }
             return await _context.Locations.ToListAsync();
         }
 
@@ -36,10 +36,10 @@ namespace RestaurantOrderSystem.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<Location>> GetLocation(int id)
         {
-          if (_context.Locations == null)
-          {
-              return NotFound();
-          }
+            if (_context.Locations == null)
+            {
+                return NotFound();
+            }
             var location = await _context.Locations.FindAsync(id);
 
             if (location == null)
@@ -86,10 +86,10 @@ namespace RestaurantOrderSystem.Controllers
         [HttpPost]
         public async Task<ActionResult<Location>> PostLocation(Location location)
         {
-          if (_context.Locations == null)
-          {
-              return Problem("Entity set 'ApplicationDbContext.Locations'  is null.");
-          }
+            if (_context.Locations == null)
+            {
+                return Problem("Entity set 'ApplicationDbContext.Locations'  is null.");
+            }
             _context.Locations.Add(location);
             await _context.SaveChangesAsync();
 

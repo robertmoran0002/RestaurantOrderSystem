@@ -9,10 +9,6 @@ namespace RestaurantOrderSystem.Models
         public int CountryId { get; set; }
         [Required]
         public string CountryName { get; set; }
-
         public int RegionId { get; set; }
-
-        [ForeignKey("RegionId")]
-        public Region Region { get; set; }
     }
 }

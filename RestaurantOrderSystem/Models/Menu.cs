@@ -17,5 +17,10 @@ namespace RestaurantOrderSystem.Models
         [ValidateNever]
         public MenuCategory Category { get; set; }
         public decimal Price { get; set; }
+
+        public override string ToString()
+        {
+            return $"id: {ItemId}\t\tName: {Name}\t\t Description: {Descrption}\t\tNotes: {Notes}\t\tCategoryId: {CategoryId}\t\tPrice: {Price}";
+        }
     }
 }

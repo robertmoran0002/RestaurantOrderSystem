@@ -23,12 +23,12 @@ namespace RestaurantOrderSystem.Migrations
                 nullable: false,
                 defaultValue: 0);
 
-            migrationBuilder.AddColumn<int>(
-                name: "OrderMainOrderId",
-                table: "Payments",
-                type: "int",
-                nullable: false,
-                defaultValue: 0);
+            //migrationBuilder.AddColumn<int>(
+            //    name: "OrderMainOrderId",
+            //    table: "Payments",
+            //    type: "int",
+            //    nullable: false,
+            //    defaultValue: 0);
 
             migrationBuilder.CreateIndex(
                 name: "IX_Payments_LocationId",
@@ -36,9 +36,9 @@ namespace RestaurantOrderSystem.Migrations
                 column: "LocationId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Payments_OrderMainOrderId",
+                name: "IX_Payments_OrderId",
                 table: "Payments",
-                column: "OrderMainOrderId");
+                column: "OrderId");
 
             migrationBuilder.AddForeignKey(
                 name: "FK_Payments_Locations_LocationId",
@@ -49,9 +49,9 @@ namespace RestaurantOrderSystem.Migrations
                 onDelete: ReferentialAction.Cascade);
 
             migrationBuilder.AddForeignKey(
-                name: "FK_Payments_OrderMains_OrderMainOrderId",
+                name: "FK_Payments_OrderMains_OrderId",
                 table: "Payments",
-                column: "OrderMainOrderId",
+                column: "OrderId",
                 principalTable: "OrderMains",
                 principalColumn: "OrderId",
                 onDelete: ReferentialAction.Cascade);
@@ -64,7 +64,7 @@ namespace RestaurantOrderSystem.Migrations
                 table: "Payments");
 
             migrationBuilder.DropForeignKey(
-                name: "FK_Payments_OrderMains_OrderMainOrderId",
+                name: "FK_Payments_OrderMains_OrderId",
                 table: "Payments");
 
             migrationBuilder.DropIndex(
@@ -72,7 +72,7 @@ namespace RestaurantOrderSystem.Migrations
                 table: "Payments");
 
             migrationBuilder.DropIndex(
-                name: "IX_Payments_OrderMainOrderId",
+                name: "IX_Payments_OrderId",
                 table: "Payments");
 
             migrationBuilder.DropColumn(
@@ -80,7 +80,7 @@ namespace RestaurantOrderSystem.Migrations
                 table: "Payments");
 
             migrationBuilder.DropColumn(
-                name: "OrderMainOrderId",
+                name: "OrderId",
                 table: "Payments");
 
             migrationBuilder.CreateIndex(

@@ -25,10 +25,10 @@ namespace RestaurantOrderSystem.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<OrderMain>>> GetOrderMains()
         {
-          if (_context.OrderMains == null)
-          {
-              return NotFound();
-          }
+            if (_context.OrderMains == null)
+            {
+                return NotFound();
+            }
             return await _context.OrderMains.ToListAsync();
         }
 
@@ -36,10 +36,10 @@ namespace RestaurantOrderSystem.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<OrderMain>> GetOrderMain(int id)
         {
-          if (_context.OrderMains == null)
-          {
-              return NotFound();
-          }
+            if (_context.OrderMains == null)
+            {
+                return NotFound();
+            }
             var orderMain = await _context.OrderMains.FindAsync(id);
 
             if (orderMain == null)
@@ -86,10 +86,10 @@ namespace RestaurantOrderSystem.Controllers
         [HttpPost]
         public async Task<ActionResult<OrderMain>> PostOrderMain(OrderMain orderMain)
         {
-          if (_context.OrderMains == null)
-          {
-              return Problem("Entity set 'ApplicationDbContext.OrderMains'  is null.");
-          }
+            if (_context.OrderMains == null)
+            {
+                return Problem("Entity set 'ApplicationDbContext.OrderMains'  is null.");
+            }
             _context.OrderMains.Add(orderMain);
             await _context.SaveChangesAsync();
 
