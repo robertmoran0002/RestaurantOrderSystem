@@ -188,7 +188,7 @@ namespace RestaurantOrderSystemForms
                 {
                     if (item.ItemId == ID)
                     {
-                        payOrderListBox.Items.Add(item);
+                        //payOrderListBox.Items.Add(item);
                         total -= Convert.ToDecimal(price) * item.Quantity;
                         placeOrder.Remove(item);
                         ID = 0;
