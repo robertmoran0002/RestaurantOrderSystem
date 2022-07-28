@@ -39,8 +39,6 @@ namespace RestaurantOrderSystem.Migrations
 
                     b.HasKey("CountryId");
 
-                    b.HasIndex("RegionId");
-
                     b.ToTable("Countries");
                 });
 
@@ -74,8 +72,6 @@ namespace RestaurantOrderSystem.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("LocationId");
-
-                    b.HasIndex("CountryId");
 
                     b.ToTable("Locations");
                 });
@@ -162,8 +158,6 @@ namespace RestaurantOrderSystem.Migrations
 
                     b.HasKey("OrderId");
 
-                    b.HasIndex("ItemId");
-
                     b.ToTable("OrderMains");
                 });
 
@@ -196,10 +190,6 @@ namespace RestaurantOrderSystem.Migrations
 
                     b.HasKey("PaymentId");
 
-                    b.HasIndex("LocationId");
-
-                    b.HasIndex("OrderId");
-
                     b.ToTable("Payments");
                 });
 
@@ -220,28 +210,6 @@ namespace RestaurantOrderSystem.Migrations
                     b.ToTable("Regions");
                 });
 
-            modelBuilder.Entity("RestaurantOrderSystem.Models.Country", b =>
-                {
-                    b.HasOne("RestaurantOrderSystem.Models.Region", "Region")
-                        .WithMany()
-                        .HasForeignKey("RegionId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Region");
-                });
-
-            modelBuilder.Entity("RestaurantOrderSystem.Models.Location", b =>
-                {
-                    b.HasOne("RestaurantOrderSystem.Models.Country", "Country")
-                        .WithMany()
-                        .HasForeignKey("CountryId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Country");
-                });
-
             modelBuilder.Entity("RestaurantOrderSystem.Models.Menu", b =>
                 {
                     b.HasOne("RestaurantOrderSystem.Models.MenuCategory", "Category")
@@ -251,36 +219,6 @@ namespace RestaurantOrderSystem.Migrations
                         .IsRequired();
 
                     b.Navigation("Category");
-                });
-
-            modelBuilder.Entity("RestaurantOrderSystem.Models.OrderMain", b =>
-                {
-                    b.HasOne("RestaurantOrderSystem.Models.Menu", "Menu")
-                        .WithMany()
-                        .HasForeignKey("ItemId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Menu");
-                });
-
-            modelBuilder.Entity("RestaurantOrderSystem.Models.Payment", b =>
-                {
-                    b.HasOne("RestaurantOrderSystem.Models.Location", "Location")
-                        .WithMany()
-                        .HasForeignKey("LocationId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("RestaurantOrderSystem.Models.OrderMain", "OrderMain")
-                        .WithMany()
-                        .HasForeignKey("OrderId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Location");
-
-                    b.Navigation("OrderMain");
                 });
 #pragma warning restore 612, 618
         }
