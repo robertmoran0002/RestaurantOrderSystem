@@ -272,9 +272,6 @@ namespace RestaurantOrderSystemForms
                 newOrder.ItemId = order.ItemId;
                 tempItemId = newOrder.ItemId;
 
-                //newOrder.Menu = menu;
-                //newOrder.Menu.Category = category;
-
                 try
                 {
                     // Add pending order to database
@@ -285,12 +282,6 @@ namespace RestaurantOrderSystemForms
                     {
                         tempOrder = await response.Content.ReadFromJsonAsync<OrderMain>();
                     }
-                    //await UpdateOrder(tempOrder); // Update list of current orders.
-
-                    // Remove placeholder information
-                    //await MainForm.DeleteMenu(tempOrder.Menu.ItemId);
-                    //await MainForm.DeleteCategory(tempOrder.Menu.Category.CategoryId);
-
                 }
                 catch (HttpRequestException error)
                 {
@@ -565,17 +556,7 @@ namespace RestaurantOrderSystemForms
                 //*** THIS IS A TEMPORARY FIX*** LocationId should be the store's location Id
                 payment.LocationId = 1;
 
-                //payment.Location = location;
-                //payment.Location.Country = country;
-                //payment.Location.Country.Region = region;
-                //payment.OrderMain = orderMain;
-                //payment.OrderMain.Menu = menu;
-                //payment.OrderMain.Menu.Category = category;
-
                 tempOrderId = order.OrderId;
-
-                //order.Menu = menu;
-                //order.Menu.Category = category;
 
                 try
                 {
@@ -597,16 +578,7 @@ namespace RestaurantOrderSystemForms
                     order.DateTimePlaced = order.DateTimePlaced;
 
                     // Make relevant changes to order lists
-                    //await UpdatePayment(tempPaymentObject);
                     await SecondaryUpdateOrder(order);
-
-                    // Remove placeholder information
-                    //await MainForm.DeleteOrder(tempPaymentObject.OrderMain.OrderId);
-                    //await MainForm.DeleteMenu(tempPaymentObject.OrderMain.Menu.ItemId);
-                    //await MainForm.DeleteCategory(tempPaymentObject.OrderMain.Menu.Category.CategoryId);
-                    //await MainForm.DeleteLocation(tempPaymentObject.Location.LocationId);
-                    //await MainForm.DeleteCountry(tempPaymentObject.Location.Country.CountryId);
-                    //await MainForm.DeleteRegion(tempPaymentObject.Location.Country.Region.RegionId);
 
                     creditCardBox.Text = "";
                     taxBox.Text = "";
@@ -635,7 +607,6 @@ namespace RestaurantOrderSystemForms
             {
                 HttpResponseMessage response = await MainForm.client.PutAsJsonAsync($"api/Payments/{payment.PaymentId}", payment);
                 response.EnsureSuccessStatusCode();
-                //MessageBox.Show("Update Successful!");
             }
             catch (HttpRequestException error)
             {
@@ -656,23 +627,10 @@ namespace RestaurantOrderSystemForms
             orderMain.DateTimePlaced = order.DateTimePlaced;
             orderMain.ItemId = order.ItemId;
 
-            //Menu menu = new Menu();
-            //MenuCategory category = new MenuCategory();
-            //menu.Name = "string";
-            //menu.Descrption = "string";
-            //menu.Notes = "string";
-            //menu.Price = 0;
-            //category.CategoryName = "string";
-            //category.CategoryDescription = "string";
-
-            //orderMain.Menu = menu;
-            //orderMain.Menu.Category = category;
-
             try
             {
                 HttpResponseMessage response = await MainForm.client.PutAsJsonAsync($"api/OrderMains/{orderMain.OrderId}", orderMain);
                 response.EnsureSuccessStatusCode();
-                //MessageBox.Show("Update Successful!");
             }
             catch (HttpRequestException error)
             {
