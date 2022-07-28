@@ -19,15 +19,14 @@ namespace RestaurantOrderSystemForms
             InitializeComponent();
         }
 
+        // Prepare lists for views in the kitchen
         List<OrderMain> incompleteOrders = new List<OrderMain>();
         public static List<Menu> kitchenMenu = new List<Menu>();
         
         int selectedIndex;
-        //int location;
 
-        private async
-
-        Task getAllOrders()
+        // Populate list of incomplete orders
+        private async Task getAllOrders()
         {
             HttpResponseMessage response;
             try
@@ -52,14 +51,16 @@ namespace RestaurantOrderSystemForms
             }
         }
 
+        // Auto update timer to add new orders to be completed
         private async void timer1_Tick(object sender, EventArgs e)
         {
-            incompleteOrders.Clear();
-            await getAllOrders();
-            orderQueue.Items.Clear();
-            orderQueue.Refresh();
-            incompleteOrders.OrderBy(x => x.DateTimePlaced);
+            incompleteOrders.Clear();   // Clear current list
+            await getAllOrders();       // Create new list of orders
+            orderQueue.Items.Clear();   // Clear kitchen view
+            orderQueue.Refresh();       // Redraw element by defaults
+            incompleteOrders.OrderBy(x => x.DateTimePlaced);    // Organize list of orders by time placed
 
+            // Populate view based on list of orders with formatting
             foreach(var order in incompleteOrders)
             {
                 Menu tempMenu = new Menu();
@@ -78,6 +79,7 @@ namespace RestaurantOrderSystemForms
             }
         }
 
+        // MEthod to redraw elements
         public static void SetPositions(ProcessOrders pOrForm)
         {
             pOrForm.orderQueue.Width = (int)((int)(pOrForm.Width * .81));
@@ -91,28 +93,33 @@ namespace RestaurantOrderSystemForms
             pOrForm.cancelButton.Top = pOrForm.Bottom - 100;
         }
 
+        // Deprecated
         private void ProcessOrders_ResizeEnd(object sender, EventArgs e)
         {
             //SetPositions(this);
         }
 
+        // If form is resized, call method to redraw elements
         private void ProcessOrders_SizeChanged(object sender, EventArgs e)
         {
             SetPositions(this);
         }
 
+        // When Complete button is clicked ..
         private async void completeButton_Click(object sender, EventArgs e)
         {
-            if (orderQueue.SelectedItem != null)
-                await UpdateOrder("Unpaid");
+            if (orderQueue.SelectedItem != null) // Ensure there is an item selected
+                await UpdateOrder("Unpaid");     // Update order status
         }
 
+        // When Cancel button is clicked .. 
         private async void cancelButton_Click(object sender, EventArgs e)
         {
-            if (orderQueue.SelectedItem != null)
-                await UpdateOrder("Cancelled");
+            if (orderQueue.SelectedItem != null) // Ensure there is an item selected
+                await UpdateOrder("Cancelled");  // Update order status
         }
 
+        // Fetch Order ID from the list view, trim excess text and parse the number
         private int GetOrderId()
         {
             string temp;
@@ -123,8 +130,10 @@ namespace RestaurantOrderSystemForms
             return Int32.Parse(temp);
         }
 
+        // Method to update order ststus
         private async Task UpdateOrder(string orderStatus)
         {
+            // Prepare relevant variables
             OrderMain orderMain = new OrderMain();
             OrderMain removeOrder = new OrderMain();
             Menu menu = new Menu();
@@ -140,21 +149,24 @@ namespace RestaurantOrderSystemForms
 
             menu.Category = menuCategory;
 
+            // Fetch order ID to be updated
             int orderId = GetOrderId();
 
             foreach (var order in incompleteOrders)
             {
                 if (order.OrderId.Equals(orderId))
                 {
+                    // Process update in variables
                     removeOrder = order;
                     orderMain = order;
                     orderMain.OrderStatus = orderStatus;
-                    orderMain.DateTimeComplete = DateTime.Now;
+                    orderMain.DateTimeComplete = DateTime.Now; // Add current timestamp for order update
                     orderMain.Menu = menu;
                 }
             }
             try
             {
+                // Commit appropriate changes to database and show response based on completion/cancellation
                 HttpResponseMessage response = await MainForm.client.PutAsJsonAsync($"api/OrderMains/{orderId}", orderMain);
                 response.EnsureSuccessStatusCode();
                 if(orderStatus == "Unpaid")
@@ -172,22 +184,4 @@ namespace RestaurantOrderSystemForms
 
 
     }
-    //public class OrderMenuJoin
-    //{
-    //    public int ItemId { get; set; }
-    //    public string Name { get; set; } = null!;
-    //    public string Descrption { get; set; } = null!;
-    //    public string? Notes { get; set; }
-    //    public int CategoryId { get; set; }
-    //    public MenuCategory Category { get; set; }
-    //    public decimal Price { get; set; }
-
-    //    public int OrderId { get; set; }
-    //    public Menu Menu { get; set; }
-    //    public int Quantity { get; set; }
-    //    public DateTime? DateTimePlaced { get; set; }
-    //    public DateTime? DateTimeComplete { get; set; }
-    //    public int OrderNumber { get; set; }
-    //    public string OrderStatus { get; set; } = null!;
-    //}
 }

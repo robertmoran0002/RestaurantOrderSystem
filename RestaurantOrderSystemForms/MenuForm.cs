@@ -19,11 +19,13 @@ namespace RestaurantOrderSystemForms
         {
             InitializeComponent();
         }
-
+        
+        // Prepare list for use in later views and some needed variables
         List<MenuCategory> categories = new List<MenuCategory>();
         bool initialized = false;
         int tempCatId;
 
+        // Populate list and add formatting for the view
         private async void getAllMenu()
         {
             HttpResponseMessage response;
@@ -50,6 +52,7 @@ namespace RestaurantOrderSystemForms
             }
         }
 
+        // Populate category list
         public async Task getAllCategories()
         {
             categories.Clear();
@@ -76,6 +79,7 @@ namespace RestaurantOrderSystemForms
             }
         }
 
+        // Populate views for category information
         public void fillDropdown()
         {
             foreach (var category in categories)
@@ -85,34 +89,38 @@ namespace RestaurantOrderSystemForms
             }
         }
 
+        // When View Menu button is clicked .. 
         private void viewMenuButton_Click(object sender, EventArgs e)
         {
-            menuViewListBox.Items.Clear();
-            getAllMenu();
+            menuViewListBox.Items.Clear();  // Empty the current view
+            getAllMenu();                   // Repopulate with current information
         }
 
+        // When a new item is clicked in the tabControl ribbon
         private async void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (!initialized)
+            if (!initialized)               // Check component initialization status, if not initialized ..
             {
-                await getAllCategories();
-                fillDropdown();
-                initialized = true;
+                await getAllCategories();   // Pull category information
+                fillDropdown();             // Populate view
+                initialized = true;         // Set initialization status to true
             }
         }
 
 
-
+        // WHen Add Item button is clicked ..
         private async void menuPostButton_Click(object sender, EventArgs e)
         {
+            // Prepare variebles
             Menu menu = new Menu();
             MenuCategory menuCat = new MenuCategory();
             menuCat.CategoryName = "Unassigned";
-            //categoryCombo.SelectedIndex = 1;
 
+            // Ensure a category has been selected for the item to be added
             if (categoryCombo.SelectedItem != null)
                 menuCat.CategoryName = categoryCombo.SelectedItem.ToString();
 
+            // Populate other details needed from the input provided on the form
             menuCat.CategoryDescription = "string";
             menu.Name = menuNameBox.Text;
             menu.Descrption = menuDescRBox.Text.Trim();
@@ -131,10 +139,10 @@ namespace RestaurantOrderSystemForms
 
             try
             {
+                // Post new item to database
                 Menu tempMenu = null;
                 HttpResponseMessage response = await MainForm.client.PostAsJsonAsync("api/Menus", menu);
                 response.EnsureSuccessStatusCode();
-                //label15.Text = response.Content.ToString();
                 if (response.IsSuccessStatusCode)
                 {
                     tempMenu = await response.Content.ReadFromJsonAsync<Menu>();
@@ -151,7 +159,7 @@ namespace RestaurantOrderSystemForms
             }
 
 
-
+            // Return input fields to defaults
             MessageBox.Show(MainForm.successPostMessage);
             menuNameBox.Text = null;
             menuDescRBox.Text = null;
@@ -159,16 +167,19 @@ namespace RestaurantOrderSystemForms
             priceNumeric.Value = 0;
         }
 
+        // When Delete Item button is clicked .. 
         private async void menuDeleteButton_ClickAsync(object sender, EventArgs e)
         {
             Menu menu = new Menu();
 
-            if (menuViewListBox.SelectedItem != null)
+            // Ensure an item has been selected from the view, parse it for relevant information
+            if (menuViewListBox.SelectedItem != null) 
             menu.ItemId = Int32.Parse(menuViewListBox.SelectedItem.ToString().Trim()
                 .Remove(menuViewListBox.SelectedItem.ToString().IndexOf("N")).Substring("Id:".Length));
 
             try
             {
+                // Commit change to database
                 HttpResponseMessage response = await MainForm.client.DeleteAsync($"api/Menus/{menu.ItemId.ToString()}");
                 response.EnsureSuccessStatusCode();
                 menuViewListBox.Items.Clear();
@@ -182,13 +193,15 @@ namespace RestaurantOrderSystemForms
             }
         }
 
+        // When Update Item button on View Menu Items tab is clicked ..
         private async void updateMenuButton_Click(object sender, EventArgs e)
         {
-            if (menuViewListBox.SelectedItem == null)
+            if (menuViewListBox.SelectedItem == null) // If no item is selected
             {
-                tabControl1.SelectedIndex = 2;
+                tabControl1.SelectedIndex = 2; // Just switch to Update Item tab
             }
             else{
+                    // Otherwise, pull information from the selected item and trim excess to populate the form, then switch tabs
                     Menu menu = new Menu();
                     string temp1;
                     string temp2;
@@ -238,8 +251,11 @@ namespace RestaurantOrderSystemForms
                 }
         }
 
+
+        // When Update Item button on the Update Item tab is clicked ..
         private async void menuUpdateButton_Click(object sender, EventArgs e)
         {
+            // Pull information from the form
             Menu menu = new Menu();
             MenuCategory menuCategory = new MenuCategory();
 
@@ -267,6 +283,7 @@ namespace RestaurantOrderSystemForms
 
             try
             {
+                // Commit change to database
                 HttpResponseMessage response = await MainForm.client.PutAsJsonAsync($"api/Menus/{menuIdUpBox.Text}", menu);
                 response.EnsureSuccessStatusCode();
                 menuViewListBox.Items.Clear();
@@ -280,6 +297,7 @@ namespace RestaurantOrderSystemForms
             }
         }
 
+        // Method to commit new Item to database
         private async Task changeMenu(Menu correctMenu)
         {
             tempCatId = correctMenu.CategoryId;
@@ -296,7 +314,6 @@ namespace RestaurantOrderSystemForms
             {
                 HttpResponseMessage response = await MainForm.client.PutAsJsonAsync($"api/Menus/{correctMenu.ItemId}", correctMenu);
                 response.EnsureSuccessStatusCode();
-                //MessageBox.Show("Update Successful!");
             }
             catch (HttpRequestException error)
             {
@@ -305,13 +322,13 @@ namespace RestaurantOrderSystemForms
             }
         }
 
+        // Method to remove category from database
         private async Task deleteCategory()
         {
             try
             {
                 HttpResponseMessage response = await MainForm.client.DeleteAsync($"api/MenuCategories/{tempCatId}");
                 response.EnsureSuccessStatusCode();
-                //MessageBox.Show("Deletion Successful!");
                 tempCatId = 0;
             }
             catch (HttpRequestException error)
@@ -321,15 +338,18 @@ namespace RestaurantOrderSystemForms
             }
         }
 
+        // Deprecated
         private void backButton1_Click(object sender, EventArgs e)
         {
             tabControl1.SelectedIndex = 0;
         }
 
+        // Deprecated
         private void tabControl1_Selected(object sender, TabControlEventArgs e)
         {
         }
 
+        // Deprecated
         private void tabControl1_MouseClick(object sender, MouseEventArgs e)
         {
 

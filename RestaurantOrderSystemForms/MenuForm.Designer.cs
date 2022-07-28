@@ -71,7 +71,6 @@
             this.label10 = new System.Windows.Forms.Label();
             this.label11 = new System.Windows.Forms.Label();
             this.label12 = new System.Windows.Forms.Label();
-            this.label15 = new System.Windows.Forms.Label();
             this.tabControl1.SuspendLayout();
             this.viewMenuTab.SuspendLayout();
             this.addMenuTab.SuspendLayout();
@@ -166,7 +165,6 @@
             // addMenuTab
             // 
             this.addMenuTab.BackColor = System.Drawing.Color.LightGreen;
-            this.addMenuTab.Controls.Add(this.label15);
             this.addMenuTab.Controls.Add(this.label14);
             this.addMenuTab.Controls.Add(this.priceNumeric);
             this.addMenuTab.Controls.Add(this.label13);
@@ -554,15 +552,6 @@
             this.label12.TabIndex = 0;
             this.label12.Text = "Delete Categories";
             // 
-            // label15
-            // 
-            this.label15.AutoSize = true;
-            this.label15.Location = new System.Drawing.Point(584, 69);
-            this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(44, 15);
-            this.label15.TabIndex = 13;
-            this.label15.Text = "label15";
-            // 
             // MenuForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -631,6 +620,5 @@
         private TextBox menuIdUpBox;
         private Label label18;
         private Button backButton1;
-        private Label label15;
     }
 }

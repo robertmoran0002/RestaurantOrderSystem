@@ -8,6 +8,7 @@ namespace RestaurantOrderSystemForms
     {
         public MainForm()
         {
+            // Create client connection to the API
             client.BaseAddress = new Uri("https://localhost:7011");
             client.DefaultRequestHeaders.Accept.Clear();
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
@@ -22,6 +23,7 @@ namespace RestaurantOrderSystemForms
 
         public static string successPostMessage = "Your submission was successful!";
 
+        // Methods to prepare and call forms when the appropriate option is selected
         private void categoriesToolStripMenuItem_Click(object sender, EventArgs e)
         {
             categoryForm.MdiParent = this;
@@ -52,7 +54,6 @@ namespace RestaurantOrderSystemForms
             processOrders.MdiParent = this;
             getAllMenu(ProcessOrders.kitchenMenu);
             processOrders.Show();
-            //ProcessOrders.SetPositions(processOrders);
         }
 
         public static async void getAllMenu(List<Menu> menuList)
@@ -100,22 +101,23 @@ namespace RestaurantOrderSystemForms
             if (response.IsSuccessStatusCode)
             {
                 var orders = await response.Content.ReadFromJsonAsync<IEnumerable<OrderMain>>();
-                //int x = 0;
+                
                 foreach (var order in orders)
                 {
-                    //if(order.LocationId == location)
+                    
                     orderList.Add(order);
                 }
             }
         }
 
+        // Methods to commit removal of specified data fram the database
         public static async Task DeleteCategory(int tempCatId)
         {
             try
             {
                 HttpResponseMessage response = await MainForm.client.DeleteAsync($"api/MenuCategories/{tempCatId}");
                 response.EnsureSuccessStatusCode();
-                //MessageBox.Show("Deletion Successful!");
+                
             }
             catch (HttpRequestException error)
             {
@@ -130,7 +132,7 @@ namespace RestaurantOrderSystemForms
             {
                 HttpResponseMessage response = await MainForm.client.DeleteAsync($"api/Menus/{tempItemId}");
                 response.EnsureSuccessStatusCode();
-                //MessageBox.Show("Deletion Successful!");
+                
             }
             catch (HttpRequestException error)
             {
@@ -145,7 +147,7 @@ namespace RestaurantOrderSystemForms
             {
                 HttpResponseMessage response = await MainForm.client.DeleteAsync($"api/Locations/{tempLocationId}");
                 response.EnsureSuccessStatusCode();
-                //MessageBox.Show("Deletion Successful!");
+                
             }
             catch (HttpRequestException error)
             {
@@ -160,7 +162,7 @@ namespace RestaurantOrderSystemForms
             {
                 HttpResponseMessage response = await MainForm.client.DeleteAsync($"api/Countries/{tempCountryId}");
                 response.EnsureSuccessStatusCode();
-                //MessageBox.Show("Deletion Successful!");
+                
             }
             catch (HttpRequestException error)
             {
@@ -175,7 +177,7 @@ namespace RestaurantOrderSystemForms
             {
                 HttpResponseMessage response = await MainForm.client.DeleteAsync($"api/Regions/{tempRegionId}");
                 response.EnsureSuccessStatusCode();
-                //MessageBox.Show("Deletion Successful!");
+                
             }
             catch (HttpRequestException error)
             {
@@ -190,7 +192,7 @@ namespace RestaurantOrderSystemForms
             {
                 HttpResponseMessage response = await MainForm.client.DeleteAsync($"api/OrderMains/{tempOrderId}");
                 response.EnsureSuccessStatusCode();
-                //MessageBox.Show("Deletion Successful!");
+               
             }
             catch (HttpRequestException error)
             {
