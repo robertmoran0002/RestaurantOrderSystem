@@ -69,7 +69,8 @@ namespace RestaurantOrderSystemForms
 
                 foreach (var category in menuCategories)
                 {
-                    menuCatViewListBox.Items.Add($"Id: {category.CategoryId} \t\t Name: {category.CategoryName} \t\t Description: {category.CategoryDescription}");
+                    //menuCatViewListBox.Items.Add($"Id: {category.CategoryId} \t\t Name: {category.CategoryName} \t\t Description: {category.CategoryDescription}");
+                    menuCatViewListBox.Items.Add(category);
                 }
             }
         }
@@ -83,15 +84,16 @@ namespace RestaurantOrderSystemForms
                 MessageBox.Show("Please select an item!");
                 return;
             }
+            menuCat = (MenuCategory) menuCatViewListBox.SelectedItem;
 
-            menuCat.CategoryId = Int32.Parse(menuCatViewListBox.SelectedItem.ToString().Trim()
-                .Remove(menuCatViewListBox.SelectedItem.ToString().IndexOf("N")).Substring("Id:".Length));
-            menuCat.CategoryName = menuCatViewListBox.SelectedItem.ToString().Trim()
-                .Remove(menuCatViewListBox.SelectedItem.ToString().LastIndexOf("Description:"));
-            menuCat.CategoryName = menuCat.CategoryName
-                .Remove(0, menuCatViewListBox.SelectedItem.ToString().IndexOf("Name:") + "Name: ".Length).Trim();
-            menuCat.CategoryDescription = menuCatViewListBox.SelectedItem.ToString().Trim()
-                .Remove(0, menuCatViewListBox.SelectedItem.ToString().LastIndexOf(":")).Substring(2);
+            //menuCat.CategoryId = Int32.Parse(menuCatViewListBox.SelectedItem.ToString().Trim()
+            //    .Remove(menuCatViewListBox.SelectedItem.ToString().IndexOf("N")).Substring("Id:".Length));
+            //menuCat.CategoryName = menuCatViewListBox.SelectedItem.ToString().Trim()
+            //    .Remove(menuCatViewListBox.SelectedItem.ToString().LastIndexOf("Description:"));
+            //menuCat.CategoryName = menuCat.CategoryName
+            //    .Remove(0, menuCatViewListBox.SelectedItem.ToString().IndexOf("Name:") + "Name: ".Length).Trim();
+            //menuCat.CategoryDescription = menuCatViewListBox.SelectedItem.ToString().Trim()
+            //    .Remove(0, menuCatViewListBox.SelectedItem.ToString().LastIndexOf(":")).Substring(2);
 
 
             catUpdateIdField.Text = menuCat.CategoryId.ToString();
@@ -136,8 +138,9 @@ namespace RestaurantOrderSystemForms
                 MessageBox.Show("Please select an item");
                 return;
             }
-            menuCat.CategoryId = Int32.Parse(menuCatViewListBox.SelectedItem.ToString().Trim()
-                .Remove(menuCatViewListBox.SelectedItem.ToString().IndexOf("N")).Substring("Id:".Length));
+            menuCat.CategoryId = ((MenuCategory) menuCatViewListBox.SelectedItem).CategoryId;
+            //menuCat.CategoryId = Int32.Parse(menuCatViewListBox.SelectedItem.ToString().Trim()
+            //    .Remove(menuCatViewListBox.SelectedItem.ToString().IndexOf("N")).Substring("Id:".Length));
 
             try
             {

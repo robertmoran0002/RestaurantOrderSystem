@@ -45,7 +45,7 @@ namespace RestaurantOrderSystemForms
             { 
                 menuForm.MdiParent = this;
                 await menuForm.getAllCategories();
-                menuForm.fillDropdown();
+                //menuForm.fillDropdown();
                 menuForm.Show();
             }
             else 

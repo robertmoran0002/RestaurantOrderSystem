@@ -9,5 +9,10 @@ namespace RestaurantOrderSystem.Models
         [Required]
         public string CategoryName { get; set; } = null!;
         public string CategoryDescription { get; set; } = null!;
+
+        public override string ToString()
+        {
+            return $"Id: {CategoryId} \t\t Name: {CategoryName} \t\t Description: {CategoryDescription}";
+        }
     }
 }

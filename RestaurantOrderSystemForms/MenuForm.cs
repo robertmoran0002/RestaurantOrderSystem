@@ -38,7 +38,7 @@ namespace RestaurantOrderSystemForms
         //List<MenuCategory> categories = new List<MenuCategory>();
         Dictionary<int, MenuCategory> categories = new Dictionary<int, MenuCategory>();
         bool initialized = false;
-        int tempCatId;
+        //int tempCatId;
 
         private async void getAllMenu()
         {
@@ -114,11 +114,18 @@ namespace RestaurantOrderSystemForms
 
         private async void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (!initialized)
+            //if (!initialized)
+            //{
+            //    await getAllCategories();
+            //    //fillDropdown();
+            //    initialized = true;
+            //}
+            int indUpdate = tabControl1.TabPages.IndexOfKey("updateMenuTab");
+            int indAdd = tabControl1.TabPages.IndexOfKey("addMenuTab");
+            if (tabControl1.SelectedTab == tabControl1.TabPages[indUpdate] || tabControl1.SelectedTab == tabControl1.TabPages[indAdd]) 
             {
                 await getAllCategories();
                 fillDropdown();
-                initialized = true;
             }
         }
 
@@ -264,6 +271,11 @@ namespace RestaurantOrderSystemForms
                 MessageBox.Show("Please enter an id!");
                 return;
             }
+            if (menuUpCombo.SelectedItem == null) 
+            {
+                MessageBox.Show("Please select a category");
+                return;
+            }
             Menu menu = new Menu();
             //MenuCategory menuCategory = new MenuCategory();
 
@@ -358,7 +370,6 @@ namespace RestaurantOrderSystemForms
 
         private void tabControl1_MouseClick(object sender, MouseEventArgs e)
         {
-
         }
 
         private void MenuForm_FormClosed(object sender, FormClosedEventArgs e)
