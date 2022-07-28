@@ -112,6 +112,7 @@ namespace RestaurantOrderSystemForms
 
             if (response.IsSuccessStatusCode)
             {
+                menuList.Clear();
                 var menuResponse = await response.Content.ReadFromJsonAsync<IEnumerable<Menu>>();
 
                 foreach (var item in menuResponse)
