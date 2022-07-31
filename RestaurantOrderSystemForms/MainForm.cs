@@ -100,13 +100,10 @@ namespace RestaurantOrderSystemForms
         // Method to pull Menu information from database
         public static async void getAllMenu(List<Menu> menuList)
         {
-
-            string categoryName;
-
             HttpResponseMessage response;
             try
             {
-                response = await MainForm.client.GetAsync("api/Menus");
+                response = await client.GetAsync("api/Menus");
                 response.EnsureSuccessStatusCode();
             }
             catch (HttpRequestException error)

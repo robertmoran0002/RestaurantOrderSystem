@@ -31,7 +31,6 @@ namespace RestaurantOrderSystemForms
         public static decimal total = 0;
         private int tempItemId;
         private int tempOrderId;
-        private int tempLocationId;
         private decimal totalGross = 0;
         private decimal totalNet = 0;
         private const double taxPercentage = 0.029;
@@ -70,6 +69,8 @@ namespace RestaurantOrderSystemForms
         // Use the compiled list of items to fill the screen with available items, separated by Category information.
         public void fillMenuView()
         {
+            menuViewListBox.Items.Clear();
+
             string categoryName;
             foreach (var item in menu)
             {
@@ -248,15 +249,6 @@ namespace RestaurantOrderSystemForms
         {
             await getAllOrders();  // Pull currently placed orders
 
-            Menu menu = new Menu();
-            MenuCategory category = new MenuCategory();
-            menu.Name = "string";
-            menu.Descrption = "string";
-            menu.Notes = "string";
-            menu.Price = 0;
-            category.CategoryName = "string";
-            category.CategoryDescription = "string";
-
             // Check list of pending orders
             foreach (var order in placeOrder)
             {
@@ -270,18 +262,12 @@ namespace RestaurantOrderSystemForms
                 newOrder.DateTimeComplete = null;
                 newOrder.OrderNumber = currentOrderNumber;
                 newOrder.ItemId = order.ItemId;
-                tempItemId = newOrder.ItemId;
 
                 try
                 {
                     // Add pending order to database
                     HttpResponseMessage response = await MainForm.client.PostAsJsonAsync("api/OrderMains", newOrder);
                     response.EnsureSuccessStatusCode();
-
-                    if (response.IsSuccessStatusCode)
-                    {
-                        tempOrder = await response.Content.ReadFromJsonAsync<OrderMain>();
-                    }
                 }
                 catch (HttpRequestException error)
                 {
@@ -296,8 +282,6 @@ namespace RestaurantOrderSystemForms
         // Add new order to database
         private async Task UpdateOrder(OrderMain orderUpdate)
         {
-            orderUpdate.ItemId = tempItemId;
-
             try
             {
                 HttpResponseMessage response = await MainForm.client.PutAsJsonAsync($"api/OrderMains/{orderUpdate.OrderId}", orderUpdate);
@@ -336,6 +320,7 @@ namespace RestaurantOrderSystemForms
         // Deprecated method
         private async void button2_Click(object sender, EventArgs e)
         {
+
             await FillPayOrders();
             tabControl1.SelectedIndex = 1;
         }
@@ -503,99 +488,56 @@ namespace RestaurantOrderSystemForms
         // Process payment on finalized orders
         private async Task PaymentPost()
         {
-            foreach (OrderMain order in finalOrders)
+            if (methodCombo.SelectedItem != null) // Ensures a payment method is selected
             {
-                // Prepare relevant details of each order
-                int count = finalOrders.Count();
-                Payment payment = new Payment();
-                Payment tempPaymentObject = new Payment();
-                OrderMain orderMain = new OrderMain();
-                Menu menu = new Menu();
-                MenuCategory category = new MenuCategory();
-                Location location = new Location();
-                Country country = new Country();
-                RestaurantOrderSystem.Models.Region region = new RestaurantOrderSystem.Models.Region();
-
-                region.RegionId = 0;
-                region.RegionName = "string";
-
-                country.CountryName = "string";
-                country.RegionId = 0;
-
-                location.LocationId = 0;
-                location.LocationName = "string";
-                location.StateProvince = "string";
-                location.Address = "string";
-                location.City = 0;
-                location.PostalCode = 0;
-
-                category.CategoryName = "string";
-                category.CategoryDescription = "string";
-
-                menu.Name = "string";
-                menu.Descrption = "string";
-                menu.Notes = "string";
-                menu.Price = 0;
-
-                order.OrderStatus = "Complete";
-                orderMain.OrderId = 0;
-                orderMain.ItemId = 0;
-                orderMain.DateTimePlaced = DateTime.Now;
-                orderMain.DateTimeComplete = DateTime.Now;
-                orderMain.OrderNumber = 0;
-                orderMain.OrderStatus = "string";
-
-                payment.Method = methodCombo.SelectedText.ToString();
-                //*** THIS IS A TEMPORARY FIX*** payment.Method should get its value from methodCombo
-                payment.Method = "Cash";
-                payment.Amount = totalNet;
-                payment.PaymentTimeStamp = DateTime.Now;
-                payment.OrderNumber = order.OrderNumber;
-                payment.OrderId = order.OrderId;
-
-                //*** THIS IS A TEMPORARY FIX*** LocationId should be the store's location Id
-                payment.LocationId = 1;
-
-                tempOrderId = order.OrderId;
-
-                try
+                foreach (OrderMain order in finalOrders)
                 {
-                    // Post payment record to database
-                    HttpResponseMessage response = await MainForm.client.PostAsJsonAsync("api/Payments", payment);
-                    response.EnsureSuccessStatusCode();
+                    // Prepare relevant details of each order
+                    int count = finalOrders.Count();
+                    Payment payment = new Payment();
+                    Payment tempPaymentObject = new Payment();
 
-                    if (response.IsSuccessStatusCode)
+                    order.OrderStatus = "Complete";
+                    payment.Method = methodCombo.SelectedItem.ToString();
+                    payment.Amount = totalNet;
+                    payment.PaymentTimeStamp = DateTime.Now;
+                    payment.OrderNumber = order.OrderNumber;
+                    payment.OrderId = order.OrderId;
+
+                    //*** THIS IS A TEMPORARY FIX*** LocationId should be the store's location Id
+                    payment.LocationId = 1;
+
+                    tempOrderId = order.OrderId;
+
+                    try
                     {
-                        tempPaymentObject = await response.Content.ReadFromJsonAsync<Payment>();
+                        // Post payment record to database
+                        HttpResponseMessage response = await MainForm.client.PostAsJsonAsync("api/Payments", payment);
+                        response.EnsureSuccessStatusCode();
+                        MessageBox.Show("Transaction Successful.");
+
+                        // Make relevant changes to order lists
+                        await UpdateOrder(order);
+
+                        creditCardBox.Text = "";
+                        taxBox.Text = "";
+                        tipNumeric.Value = 0;
+                        amountBox.Text = "0";
+                        totalGross = 0;
+                        totalNet = 0;
+                        tipAmount = 0;
+                        taxAmount = 0;
+                        payOrderInfoBox.Items.Clear();
+                        await FillPayOrders(); // Refresh list of unpaid orders
                     }
-                    tempPaymentObject.LocationId = 1;
-                    tempItemId = order.ItemId;
-                    order.ItemId = order.ItemId;
-                    order.OrderNumber = order.OrderNumber;
-                    order.OrderStatus = order.OrderStatus;
-                    order.Quantity = order.Quantity;
-                    order.DateTimeComplete = order.DateTimeComplete;
-                    order.DateTimePlaced = order.DateTimePlaced;
-
-                    // Make relevant changes to order lists
-                    await SecondaryUpdateOrder(order);
-
-                    creditCardBox.Text = "";
-                    taxBox.Text = "";
-                    tipNumeric.Value = 0;
-                    amountBox.Text = "0";
-                    totalGross = 0;
-                    totalNet = 0;
-                    tipAmount = 0;
-                    taxAmount = 0;
-                    await FillPayOrders(); // Refresh list of unpaid orders
-                }
-                catch (HttpRequestException error)
-                {
-                    MessageBox.Show(error.Message);
-                    return;
+                    catch (HttpRequestException error)
+                    {
+                        MessageBox.Show(error.Message);
+                        return;
+                    }
                 }
             }
+            else MessageBox.Show("Please select a payment method.");
         }
 
         // Update payment record in database
@@ -618,18 +560,9 @@ namespace RestaurantOrderSystemForms
         // Update order record in database
         private async Task SecondaryUpdateOrder(OrderMain order)
         {
-            OrderMain orderMain = new OrderMain();
-            orderMain.OrderId = order.OrderId;
-            orderMain.OrderNumber = order.OrderNumber;
-            orderMain.OrderStatus = order.OrderStatus;
-            orderMain.Quantity = order.Quantity;
-            orderMain.DateTimeComplete = order.DateTimeComplete;
-            orderMain.DateTimePlaced = order.DateTimePlaced;
-            orderMain.ItemId = order.ItemId;
-
             try
             {
-                HttpResponseMessage response = await MainForm.client.PutAsJsonAsync($"api/OrderMains/{orderMain.OrderId}", orderMain);
+                HttpResponseMessage response = await MainForm.client.PutAsJsonAsync($"api/OrderMains/{order.OrderId}", order);
                 response.EnsureSuccessStatusCode();
             }
             catch (HttpRequestException error)
@@ -647,6 +580,12 @@ namespace RestaurantOrderSystemForms
 
         // Manually refresh list and view of unpaid orders
         private async void refreshPayButton_Click(object sender, EventArgs e)
+        {
+            await FillPayOrders();
+        }
+
+        // Refreshes the order view when a tab is clicked
+        private async void tabControl1_Click(object sender, EventArgs e)
         {
             await FillPayOrders();
         }

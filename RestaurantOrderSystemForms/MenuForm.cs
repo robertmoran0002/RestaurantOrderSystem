@@ -264,10 +264,28 @@ namespace RestaurantOrderSystemForms
             }
         }
 
-        // Deprecated
+        // Takes user back to View tab
         private void backButton1_Click(object sender, EventArgs e)
         {
             tabControl1.SelectedIndex = 0;
+        }
+
+        // Takes user back to View tab
+        private void button1_Click(object sender, EventArgs e)
+        {
+            tabControl1.SelectedIndex = 0;
+        }
+
+        // Method to readjust screen layout
+        private void SetPosition()
+        {
+            menuViewListBox.Height = (int)(this.Height * .83);
+        }
+
+        // Adjusts view box upon form resize
+        private void MenuForm_SizeChanged(object sender, EventArgs e)
+        {
+            SetPosition();
         }
 
         // Deprecated
