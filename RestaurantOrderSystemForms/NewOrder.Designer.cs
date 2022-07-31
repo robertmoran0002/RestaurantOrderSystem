@@ -77,6 +77,7 @@
             this.tabControl1.Size = new System.Drawing.Size(1809, 940);
             this.tabControl1.TabIndex = 0;
             this.tabControl1.SelectedIndexChanged += new System.EventHandler(this.tabControl1_SelectedIndexChanged);
+            this.tabControl1.Click += new System.EventHandler(this.tabControl1_Click);
             // 
             // orderSelectTab
             // 

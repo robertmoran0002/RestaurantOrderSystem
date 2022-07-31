@@ -30,12 +30,14 @@
         {
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.viewCatTab = new System.Windows.Forms.TabPage();
+            this.label5 = new System.Windows.Forms.Label();
             this.menuCatViewListBox = new System.Windows.Forms.ListBox();
             this.catDeleteButton = new System.Windows.Forms.Button();
             this.catUpdateButton = new System.Windows.Forms.Button();
             this.viewCategoriesButton = new System.Windows.Forms.Button();
             this.label6 = new System.Windows.Forms.Label();
             this.addCatTab = new System.Windows.Forms.TabPage();
+            this.button1 = new System.Windows.Forms.Button();
             this.categoryPostButton = new System.Windows.Forms.Button();
             this.categoryDescRBox = new System.Windows.Forms.RichTextBox();
             this.categoryNameBox = new System.Windows.Forms.TextBox();
@@ -43,6 +45,7 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.updateCatTab = new System.Windows.Forms.TabPage();
+            this.button2 = new System.Windows.Forms.Button();
             this.catNameUpdateField = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
             this.updateCatButton = new System.Windows.Forms.Button();
@@ -51,18 +54,10 @@
             this.label7 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
-            this.deleteCatTab = new System.Windows.Forms.TabPage();
-            this.button3 = new System.Windows.Forms.Button();
-            this.richTextBox3 = new System.Windows.Forms.RichTextBox();
-            this.textBox3 = new System.Windows.Forms.TextBox();
-            this.label10 = new System.Windows.Forms.Label();
-            this.label11 = new System.Windows.Forms.Label();
-            this.label12 = new System.Windows.Forms.Label();
             this.tabControl1.SuspendLayout();
             this.viewCatTab.SuspendLayout();
             this.addCatTab.SuspendLayout();
             this.updateCatTab.SuspendLayout();
-            this.deleteCatTab.SuspendLayout();
             this.SuspendLayout();
             // 
             // tabControl1
@@ -70,17 +65,17 @@
             this.tabControl1.Controls.Add(this.viewCatTab);
             this.tabControl1.Controls.Add(this.addCatTab);
             this.tabControl1.Controls.Add(this.updateCatTab);
-            this.tabControl1.Controls.Add(this.deleteCatTab);
             this.tabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tabControl1.Location = new System.Drawing.Point(0, 0);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(1006, 450);
+            this.tabControl1.Size = new System.Drawing.Size(1793, 952);
             this.tabControl1.TabIndex = 0;
             // 
             // viewCatTab
             // 
             this.viewCatTab.BackColor = System.Drawing.Color.LightSteelBlue;
+            this.viewCatTab.Controls.Add(this.label5);
             this.viewCatTab.Controls.Add(this.menuCatViewListBox);
             this.viewCatTab.Controls.Add(this.catDeleteButton);
             this.viewCatTab.Controls.Add(this.catUpdateButton);
@@ -89,42 +84,58 @@
             this.viewCatTab.Location = new System.Drawing.Point(4, 24);
             this.viewCatTab.Name = "viewCatTab";
             this.viewCatTab.Padding = new System.Windows.Forms.Padding(3);
-            this.viewCatTab.Size = new System.Drawing.Size(998, 422);
+            this.viewCatTab.Size = new System.Drawing.Size(1785, 924);
             this.viewCatTab.TabIndex = 4;
             this.viewCatTab.Text = "View Categories";
             // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Font = new System.Drawing.Font("Segoe UI", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.label5.Location = new System.Drawing.Point(43, 40);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(237, 40);
+            this.label5.TabIndex = 11;
+            this.label5.Text = "View Categories";
+            // 
             // menuCatViewListBox
             // 
+            this.menuCatViewListBox.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.menuCatViewListBox.FormattingEnabled = true;
             this.menuCatViewListBox.ItemHeight = 15;
-            this.menuCatViewListBox.Location = new System.Drawing.Point(43, 99);
+            this.menuCatViewListBox.Location = new System.Drawing.Point(3, 107);
             this.menuCatViewListBox.Name = "menuCatViewListBox";
-            this.menuCatViewListBox.Size = new System.Drawing.Size(894, 244);
+            this.menuCatViewListBox.Size = new System.Drawing.Size(1779, 814);
             this.menuCatViewListBox.TabIndex = 10;
             // 
             // catDeleteButton
             // 
-            this.catDeleteButton.Location = new System.Drawing.Point(576, 369);
+            this.catDeleteButton.BackColor = System.Drawing.Color.Red;
+            this.catDeleteButton.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.catDeleteButton.Location = new System.Drawing.Point(1018, 56);
             this.catDeleteButton.Name = "catDeleteButton";
             this.catDeleteButton.Size = new System.Drawing.Size(118, 23);
             this.catDeleteButton.TabIndex = 8;
             this.catDeleteButton.Text = "Delete Category";
-            this.catDeleteButton.UseVisualStyleBackColor = true;
+            this.catDeleteButton.UseVisualStyleBackColor = false;
             this.catDeleteButton.Click += new System.EventHandler(this.catDeleteButton_Click);
             // 
             // catUpdateButton
             // 
-            this.catUpdateButton.Location = new System.Drawing.Point(400, 369);
+            this.catUpdateButton.BackColor = System.Drawing.Color.Gold;
+            this.catUpdateButton.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.catUpdateButton.Location = new System.Drawing.Point(842, 56);
             this.catUpdateButton.Name = "catUpdateButton";
             this.catUpdateButton.Size = new System.Drawing.Size(118, 23);
             this.catUpdateButton.TabIndex = 7;
             this.catUpdateButton.Text = "Update Category";
-            this.catUpdateButton.UseVisualStyleBackColor = true;
+            this.catUpdateButton.UseVisualStyleBackColor = false;
             this.catUpdateButton.Click += new System.EventHandler(this.catUpdateButton_Click);
             // 
             // viewCategoriesButton
             // 
-            this.viewCategoriesButton.Location = new System.Drawing.Point(223, 369);
+            this.viewCategoriesButton.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.viewCategoriesButton.Location = new System.Drawing.Point(665, 56);
             this.viewCategoriesButton.Name = "viewCategoriesButton";
             this.viewCategoriesButton.Size = new System.Drawing.Size(118, 23);
             this.viewCategoriesButton.TabIndex = 5;
@@ -138,13 +149,13 @@
             this.label6.Font = new System.Drawing.Font("Segoe UI", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.label6.Location = new System.Drawing.Point(43, 40);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(237, 40);
+            this.label6.Size = new System.Drawing.Size(0, 40);
             this.label6.TabIndex = 0;
-            this.label6.Text = "View Categories";
             // 
             // addCatTab
             // 
             this.addCatTab.BackColor = System.Drawing.Color.LightGreen;
+            this.addCatTab.Controls.Add(this.button1);
             this.addCatTab.Controls.Add(this.categoryPostButton);
             this.addCatTab.Controls.Add(this.categoryDescRBox);
             this.addCatTab.Controls.Add(this.categoryNameBox);
@@ -154,13 +165,26 @@
             this.addCatTab.Location = new System.Drawing.Point(4, 24);
             this.addCatTab.Name = "addCatTab";
             this.addCatTab.Padding = new System.Windows.Forms.Padding(3);
-            this.addCatTab.Size = new System.Drawing.Size(998, 422);
+            this.addCatTab.Size = new System.Drawing.Size(1785, 924);
             this.addCatTab.TabIndex = 0;
             this.addCatTab.Text = "Add Categories";
             // 
+            // button1
+            // 
+            this.button1.BackColor = System.Drawing.Color.DeepSkyBlue;
+            this.button1.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.button1.Location = new System.Drawing.Point(491, 348);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(107, 23);
+            this.button1.TabIndex = 6;
+            this.button1.Text = "Back to View";
+            this.button1.UseVisualStyleBackColor = false;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
             // categoryPostButton
             // 
-            this.categoryPostButton.Location = new System.Drawing.Point(307, 348);
+            this.categoryPostButton.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.categoryPostButton.Location = new System.Drawing.Point(162, 348);
             this.categoryPostButton.Name = "categoryPostButton";
             this.categoryPostButton.Size = new System.Drawing.Size(118, 23);
             this.categoryPostButton.TabIndex = 5;
@@ -216,6 +240,7 @@
             // updateCatTab
             // 
             this.updateCatTab.BackColor = System.Drawing.Color.Wheat;
+            this.updateCatTab.Controls.Add(this.button2);
             this.updateCatTab.Controls.Add(this.catNameUpdateField);
             this.updateCatTab.Controls.Add(this.label4);
             this.updateCatTab.Controls.Add(this.updateCatButton);
@@ -227,16 +252,28 @@
             this.updateCatTab.Location = new System.Drawing.Point(4, 24);
             this.updateCatTab.Name = "updateCatTab";
             this.updateCatTab.Padding = new System.Windows.Forms.Padding(3);
-            this.updateCatTab.Size = new System.Drawing.Size(998, 422);
+            this.updateCatTab.Size = new System.Drawing.Size(1785, 924);
             this.updateCatTab.TabIndex = 5;
             this.updateCatTab.Text = "Update Categories";
+            // 
+            // button2
+            // 
+            this.button2.BackColor = System.Drawing.Color.DeepSkyBlue;
+            this.button2.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.button2.Location = new System.Drawing.Point(491, 348);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(107, 23);
+            this.button2.TabIndex = 7;
+            this.button2.Text = "Back to View";
+            this.button2.UseVisualStyleBackColor = false;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
             // catNameUpdateField
             // 
             this.catNameUpdateField.Location = new System.Drawing.Point(166, 165);
             this.catNameUpdateField.Name = "catNameUpdateField";
             this.catNameUpdateField.Size = new System.Drawing.Size(263, 23);
-            this.catNameUpdateField.TabIndex = 7;
+            this.catNameUpdateField.TabIndex = 4;
             // 
             // label4
             // 
@@ -250,10 +287,11 @@
             // 
             // updateCatButton
             // 
-            this.updateCatButton.Location = new System.Drawing.Point(307, 348);
+            this.updateCatButton.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.updateCatButton.Location = new System.Drawing.Point(166, 348);
             this.updateCatButton.Name = "updateCatButton";
             this.updateCatButton.Size = new System.Drawing.Size(118, 23);
-            this.updateCatButton.TabIndex = 5;
+            this.updateCatButton.TabIndex = 6;
             this.updateCatButton.Text = "Update Category";
             this.updateCatButton.UseVisualStyleBackColor = true;
             this.updateCatButton.Click += new System.EventHandler(this.updateCatButton_Click);
@@ -263,7 +301,7 @@
             this.catUpdateDescRBox.Location = new System.Drawing.Point(166, 222);
             this.catUpdateDescRBox.Name = "catUpdateDescRBox";
             this.catUpdateDescRBox.Size = new System.Drawing.Size(432, 96);
-            this.catUpdateDescRBox.TabIndex = 4;
+            this.catUpdateDescRBox.TabIndex = 5;
             this.catUpdateDescRBox.Text = "";
             // 
             // catUpdateIdField
@@ -303,84 +341,16 @@
             this.label9.TabIndex = 0;
             this.label9.Text = "Update Categories";
             // 
-            // deleteCatTab
-            // 
-            this.deleteCatTab.BackColor = System.Drawing.Color.MistyRose;
-            this.deleteCatTab.Controls.Add(this.button3);
-            this.deleteCatTab.Controls.Add(this.richTextBox3);
-            this.deleteCatTab.Controls.Add(this.textBox3);
-            this.deleteCatTab.Controls.Add(this.label10);
-            this.deleteCatTab.Controls.Add(this.label11);
-            this.deleteCatTab.Controls.Add(this.label12);
-            this.deleteCatTab.Location = new System.Drawing.Point(4, 24);
-            this.deleteCatTab.Name = "deleteCatTab";
-            this.deleteCatTab.Padding = new System.Windows.Forms.Padding(3);
-            this.deleteCatTab.Size = new System.Drawing.Size(998, 422);
-            this.deleteCatTab.TabIndex = 6;
-            this.deleteCatTab.Text = "Delete Categories";
-            // 
-            // button3
-            // 
-            this.button3.Location = new System.Drawing.Point(307, 348);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(118, 23);
-            this.button3.TabIndex = 5;
-            this.button3.Text = "Add Category";
-            this.button3.UseVisualStyleBackColor = true;
-            // 
-            // richTextBox3
-            // 
-            this.richTextBox3.Location = new System.Drawing.Point(166, 222);
-            this.richTextBox3.Name = "richTextBox3";
-            this.richTextBox3.Size = new System.Drawing.Size(432, 96);
-            this.richTextBox3.TabIndex = 4;
-            this.richTextBox3.Text = "";
-            // 
-            // textBox3
-            // 
-            this.textBox3.Location = new System.Drawing.Point(162, 122);
-            this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(263, 23);
-            this.textBox3.TabIndex = 3;
-            // 
-            // label10
-            // 
-            this.label10.AutoSize = true;
-            this.label10.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.label10.Location = new System.Drawing.Point(43, 212);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(102, 21);
-            this.label10.TabIndex = 2;
-            this.label10.Text = "Description:";
-            // 
-            // label11
-            // 
-            this.label11.AutoSize = true;
-            this.label11.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.label11.Location = new System.Drawing.Point(60, 120);
-            this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(60, 21);
-            this.label11.TabIndex = 1;
-            this.label11.Text = "Name:";
-            // 
-            // label12
-            // 
-            this.label12.AutoSize = true;
-            this.label12.Font = new System.Drawing.Font("Segoe UI", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.label12.Location = new System.Drawing.Point(43, 40);
-            this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(259, 40);
-            this.label12.TabIndex = 0;
-            this.label12.Text = "Delete Categories";
-            // 
             // CategoryForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1006, 450);
+            this.ClientSize = new System.Drawing.Size(1793, 952);
             this.Controls.Add(this.tabControl1);
             this.Name = "CategoryForm";
             this.Text = "Category Form";
+            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
+            this.SizeChanged += new System.EventHandler(this.CategoryForm_SizeChanged);
             this.tabControl1.ResumeLayout(false);
             this.viewCatTab.ResumeLayout(false);
             this.viewCatTab.PerformLayout();
@@ -388,8 +358,6 @@
             this.addCatTab.PerformLayout();
             this.updateCatTab.ResumeLayout(false);
             this.updateCatTab.PerformLayout();
-            this.deleteCatTab.ResumeLayout(false);
-            this.deleteCatTab.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -404,9 +372,6 @@
         private Label label3;
         private Label label2;
         private Label label1;
-        private TabPage viewCatTab;
-        private Button viewCategoriesButton;
-        private Label label6;
         private TabPage updateCatTab;
         private Button updateCatButton;
         private RichTextBox catUpdateDescRBox;
@@ -414,17 +379,16 @@
         private Label label7;
         private Label label8;
         private Label label9;
-        private TabPage deleteCatTab;
-        private Button button3;
-        private RichTextBox richTextBox3;
-        private TextBox textBox3;
-        private Label label10;
-        private Label label11;
-        private Label label12;
         private TextBox catNameUpdateField;
         private Label label4;
+        private TabPage viewCatTab;
+        private ListBox menuCatViewListBox;
         private Button catDeleteButton;
         private Button catUpdateButton;
-        private ListBox menuCatViewListBox;
+        private Button viewCategoriesButton;
+        private Label label6;
+        private Label label5;
+        private Button button1;
+        private Button button2;
     }
 }

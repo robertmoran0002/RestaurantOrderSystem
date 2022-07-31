@@ -156,5 +156,29 @@ namespace RestaurantOrderSystemForms
                 return;
             }
         }
+
+        // Method to readjust screen layout
+        private void SetPosition()
+        {
+            menuCatViewListBox.Height = (int)(this.Height * .83);
+        }
+
+        // Adjusts view box upon form resize
+        private void CategoryForm_SizeChanged(object sender, EventArgs e)
+        {
+            SetPosition();
+        }
+
+        // Takes user back to View tab
+        private void button1_Click(object sender, EventArgs e)
+        {
+            tabControl1.SelectedIndex = 0;
+        }
+
+        // Takes user back to View tab
+        private void button2_Click(object sender, EventArgs e)
+        {
+            tabControl1.SelectedIndex = 0;
+        }
     }
 }
