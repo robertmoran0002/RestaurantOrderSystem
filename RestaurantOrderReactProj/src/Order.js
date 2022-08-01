@@ -1,9 +1,14 @@
 ﻿import React, { Component } from 'react';
-import authService from './api-authorization/AuthorizeService';
 import './NavMenu.css';
 import ReactDOM from 'react';
 
 export class Order extends Component {
+    constructor(props) {
+        super(props);
+        this.state = { Orders: [], loading: true };
+        var axios = require('axios');
+    }
+
     render() {
         return (
             <div>
@@ -14,3 +19,4 @@ export class Order extends Component {
             </div>
         );
     }
+}
