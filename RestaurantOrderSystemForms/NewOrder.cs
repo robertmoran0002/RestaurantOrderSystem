@@ -26,6 +26,7 @@ namespace RestaurantOrderSystemForms
         OrderMain tempOrder = new OrderMain();
         List<OrderMain> payOrders = new List<OrderMain>();
         List<OrderMain> finalOrders = new List<OrderMain>();
+        List<MenuAndCategory> menuAndCategoriesList = new List<MenuAndCategory>();
 
         public static int currentOrderNumber;
         public static decimal total = 0;
@@ -36,7 +37,6 @@ namespace RestaurantOrderSystemForms
         private const double taxPercentage = 0.029;
         private decimal taxAmount = 0;
         private decimal tipAmount = 0;
-
 
         // Pull menu from database to populate a list of available items.
         public async Task getAllMenu()
@@ -70,20 +70,50 @@ namespace RestaurantOrderSystemForms
         public void fillMenuView()
         {
             menuViewListBox.Items.Clear();
+            FillMenuAndCategoriesList();
 
-            string categoryName;
+            foreach (var item in menuAndCategoriesList)
+            {
+                if (item.Category == categorySearchComboBox.Text)
+                {
+                    menuViewListBox.Items.Add($"Id: {item.ItemId} \t Name: {item.Name} \t Description: {item.Description} \t\t" +
+                            $"Notes: {item.Notes} \t\t Category: {item.Category} \t Price: ${item.Price}");
+                }
+            }
+            if (categorySearchComboBox.Text == "All" || categorySearchComboBox.Text == "")
+            menuAndCategoriesList.ForEach(x => menuViewListBox.Items.Add($"Id: {x.ItemId} \t Name: {x.Name} \t Description: {x.Description} \t\t" +
+                            $"Notes: {x.Notes} \t\t Category: {x.Category} \t Price: ${x.Price}"));
+        }
+
+        // Clears and fills the MenuAndCategory list and organizes it by category name. Populates the category search combo box.
+        public void FillMenuAndCategoriesList()
+        {
+            menuAndCategoriesList.Clear();
+            categorySearchComboBox.Items.Clear();
+            categorySearchComboBox.Items.Add("All");
+            categories.OrderBy(x => x.CategoryName);
+            categories.ForEach(x => categorySearchComboBox.Items.Add(x.CategoryName));
+
             foreach (var item in menu)
             {
                 foreach (var category in categories)
                 {
                     if (item.CategoryId == category.CategoryId)
                     {
-                        categoryName = category.CategoryName;
-                        menuViewListBox.Items.Add($"Id: {item.ItemId} \t Name: {item.Name} \t Description: {item.Descrption} \t\t" +
-                            $"Notes: {item.Notes} \t\t Category: {categoryName} \t Price: ${item.Price}");
+                        MenuAndCategory menuAndCategory = new MenuAndCategory();
+
+                        menuAndCategory.ItemId = item.ItemId;
+                        menuAndCategory.Name = item.Name;
+                        menuAndCategory.Description = item.Descrption;
+                        menuAndCategory.Notes = item.Notes;
+                        menuAndCategory.Category = category.CategoryName;
+                        menuAndCategory.Price = item.Price;
+
+                        menuAndCategoriesList.Add(menuAndCategory);
                     }
                 }
             }
+            menuAndCategoriesList.OrderBy(x => x.Category);
         }
 
         // Pull categories from the database to compile a list of available categories.
@@ -589,5 +619,22 @@ namespace RestaurantOrderSystemForms
         {
             await FillPayOrders();
         }
+
+        // Repopulates the menu view list box when a category is selected
+        private void categorySearchComboBox_TextChanged(object sender, EventArgs e)
+        {
+            fillMenuView();
+        }
+    }
+
+    // Uses relevant data members from the Menu and MenuCategory classes for convienience
+    public class MenuAndCategory
+    {
+        public int ItemId { get; set; }
+        public string Name { get; set; }
+        public string Description { get; set; }
+        public string Notes { get; set; }
+        public string Category { get; set; }
+        public decimal Price { get; set; }
     }
 }

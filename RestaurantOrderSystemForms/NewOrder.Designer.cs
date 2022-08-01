@@ -30,6 +30,8 @@
         {
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.orderSelectTab = new System.Windows.Forms.TabPage();
+            this.label11 = new System.Windows.Forms.Label();
+            this.categorySearchComboBox = new System.Windows.Forms.ComboBox();
             this.toPayButton = new System.Windows.Forms.Button();
             this.label4 = new System.Windows.Forms.Label();
             this.totalBox = new System.Windows.Forms.TextBox();
@@ -82,6 +84,8 @@
             // orderSelectTab
             // 
             this.orderSelectTab.BackColor = System.Drawing.Color.Silver;
+            this.orderSelectTab.Controls.Add(this.label11);
+            this.orderSelectTab.Controls.Add(this.categorySearchComboBox);
             this.orderSelectTab.Controls.Add(this.toPayButton);
             this.orderSelectTab.Controls.Add(this.label4);
             this.orderSelectTab.Controls.Add(this.totalBox);
@@ -101,6 +105,25 @@
             this.orderSelectTab.TabIndex = 0;
             this.orderSelectTab.Text = "Order Selection";
             this.orderSelectTab.Click += new System.EventHandler(this.orderSelectTab_Click);
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.label11.Location = new System.Drawing.Point(595, 24);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(77, 20);
+            this.label11.TabIndex = 13;
+            this.label11.Text = "Category:";
+            // 
+            // categorySearchComboBox
+            // 
+            this.categorySearchComboBox.FormattingEnabled = true;
+            this.categorySearchComboBox.Location = new System.Drawing.Point(595, 47);
+            this.categorySearchComboBox.Name = "categorySearchComboBox";
+            this.categorySearchComboBox.Size = new System.Drawing.Size(150, 23);
+            this.categorySearchComboBox.TabIndex = 12;
+            this.categorySearchComboBox.TextChanged += new System.EventHandler(this.categorySearchComboBox_TextChanged);
             // 
             // toPayButton
             // 
@@ -487,5 +510,7 @@
         private Button toPayButton;
         private Button toOrderButton;
         private NumericUpDown tipNumeric;
+        private Label label11;
+        private ComboBox categorySearchComboBox;
     }
 }
