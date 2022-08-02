@@ -8,6 +8,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Controllers\HomeController.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Include="wwwroot\css\bootswatchdarkly.css" />
     <None Include="wwwroot\css\site.css" />
     <None Include="wwwroot\favicon.ico" />

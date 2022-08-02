@@ -7,10 +7,4 @@
     <JavaScriptTestRoot>src\</JavaScriptTestRoot>
     <JavaScriptTestFramework>Jest</JavaScriptTestFramework>
   </PropertyGroup>
-  <ItemGroup>
-    <TypeScriptConfiguration Remove="src\NewFolder\NewFolder\**" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Remove="src\NewFolder\NewFolder\**" />
-  </ItemGroup>
 </Project>

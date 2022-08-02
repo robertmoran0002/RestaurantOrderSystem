@@ -11,7 +11,7 @@ import { Regions } from "./Regions";
 const AppRoutes = [
     {
         index: true,
-        path: '/',
+        path: '/home',
         element: <Home />
   },
 

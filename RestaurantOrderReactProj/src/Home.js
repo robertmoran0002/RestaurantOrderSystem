@@ -5,8 +5,8 @@ export class Home extends Component {
 
   render() {
     return (
-        <div class="text-center">
-            <h3 class="display-4">Restaurant Database</h3>
+        <div className="text-center">
+            <h3 className="display-4">Restaurant Database</h3>
             <p>Please select a category from the navigation bar.</p>
         </div>
     );

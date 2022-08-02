@@ -31,7 +31,7 @@ export class Order extends Component {
         this.populateOrderData();
     }
     async populateOrderData() {
-        const response = await fetch('api/OrderMains');
+        const response = await fetch('https://localhost:7011/api/OrderMains');
         const data = await response.json();
         this.setState({ orders: data, loading: false });
     }
