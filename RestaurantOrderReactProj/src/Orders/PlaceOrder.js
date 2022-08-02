@@ -3,7 +3,6 @@ import '../NavMenu.css';
 import ReactDOM from 'react';
 
 export class PlaceOrder extends Component {
-
     static displayName = PlaceOrder.name;
     constructor(props) {
         super(props);
