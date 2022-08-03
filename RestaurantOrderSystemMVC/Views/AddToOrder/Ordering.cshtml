@@ -1,0 +1,102 @@
+﻿@using RestaurantOrderSystem.Models
+
+@{
+	IEnumerable<Menu> MenuData = ViewData["MenuData"] as IEnumerable<Menu>;
+	Dictionary<int,Menu> MenuItems = new Dictionary<int, Menu>();
+	foreach (Menu item in MenuData)
+	{
+		MenuItems[item.ItemId] = item;
+	}
+
+	//var temp = Json.Serialize(MenuItems);
+}
+
+<h1>Order Now!</h1>
+
+	
+	<div class="form-group">
+		<label class="control-label">Menu</label>
+		<button class="btn btn-outline-primary mx-5 mb-2" onclick="addToMenu()">Add</button>
+
+		<select class ="form-control" id="menuList" size="8" asp-items="ViewBag.MenuList" onchange="updateDisplay(value)"></select>
+	</div>
+
+	<div class="form-group">
+		<label class="control-label">Description</label>
+		<input type="text" id="desc" class="form-control" value="" readonly>
+	</div>
+
+	<div class="form-group">
+		<label class="control-label">Notes</label>
+		<input type="text" id="notes" class="form-control" value="" readonly>
+	</div>
+
+	<div class="form-group">
+		<label class="control-label">Price</label>
+		<input type="text" id="price" class="form-control" value="" readonly>
+		<input hidden type="text" id="name" class="form-control" value="" readonly>
+	</div>
+
+
+	<div class="form-group">
+		@*<button class="btn btn-outline-primary mx-5 mb-2 mt-2" onclick="addToMenu()">Place Orders</button>*@
+		<form action="#">
+			<div>
+				<label class="control-label" style="margin-right:50px;">Orders</label>
+				<label class="control-label">Total:</label>
+				<input type="text" id="total" value="" readonly>
+				<button class="btn btn-outline-primary mx-5 mb-2 mt-2" type="submit">Place Orders</button>
+
+				<select id="OrderList" class ="form-control" name="menu" size="0" ></select>
+			</div>
+		</form>
+
+	</div>
+
+
+
+<script>
+	function updateDisplay(data) {
+		const elementDesc = document.getElementById('desc');
+		const elementNotes = document.getElementById('notes');
+		const elementPrice = document.getElementById('price');
+		const elementName = document.getElementById('name');
+		const myDict = JSON.parse('@Json.Serialize(MenuItems)');  //This here be legendary. It was all I needed brother. This line of code here allows you pass objects from C# server side to Javascript. Spent 4 hours trying to figure this one out.
+		elementDesc.value = myDict[data].descrption;
+		elementNotes.value = myDict[data].notes;
+		elementPrice.value = '$'+(myDict[data].price).toFixed(2);
+        elementName.value = myDict[data].name;
+		
+		console.log(myDict[data].price);
+	}
+
+	function addToMenu() {
+		console.log("clickity click!")
+        const data = document.getElementById('menuList').value;
+        if (data != "") 
+		{ 
+			const dataName = document.getElementById('name').value;
+			const myDict = JSON.parse('@Json.Serialize(MenuItems)');
+
+			const elementNew = document.createElement('option');
+
+			const elementOrders = document.getElementById('OrderList');
+			const elementTotal = document.getElementById('total'
+			);
+
+            var totalCost = 0;
+			elementNew.value = data;
+			elementNew.innerText = dataName;
+			elementOrders.append(elementNew);
+			elementOrders.size += 1;
+
+			for (i = 0; i < elementOrders.length ;i++) {
+				totalCost += myDict[elementOrders[i].value].price;
+			}
+
+            elementTotal.value = totalCost.toFixed(2);
+		}
+
+	}
+</script>
+
