@@ -1,12 +1,12 @@
 ﻿@using RestaurantOrderSystem.Models
 
 @{
-	IEnumerable<Menu> MenuData = ViewData["MenuData"] as IEnumerable<Menu>;
-	Dictionary<int,Menu> MenuItems = new Dictionary<int, Menu>();
-	foreach (Menu item in MenuData)
-	{
-		MenuItems[item.ItemId] = item;
-	}
+	//IEnumerable<Menu> MenuData = ViewData["MenuData"] as IEnumerable<Menu>;
+	//Dictionary<int,Menu> MenuItems = new Dictionary<int, Menu>();
+	//foreach (Menu item in MenuData)
+	//{
+	//	MenuItems[item.ItemId] = item;
+	//}
 
 	//var temp = Json.Serialize(MenuItems);
 }
@@ -16,7 +16,7 @@
 	
 	<div class="form-group">
 		<label class="control-label">Menu</label>
-		<button class="btn btn-outline-primary mx-5 mb-2" onclick="addToMenu()">Add</button>
+		<button class="btn btn-outline-primary mx-5 mb-2" onclick="addToOrder()">Add</button>
 
 		<select class ="form-control" id="menuList" size="8" asp-items="ViewBag.MenuList" onchange="updateDisplay(value)"></select>
 	</div>
@@ -40,15 +40,15 @@
 
 	<div class="form-group">
 		@*<button class="btn btn-outline-primary mx-5 mb-2 mt-2" onclick="addToMenu()">Place Orders</button>*@
-		<form action="#">
-			<div>
+		<form asp-action="Ordering" enctype="multipart/form-data" id="FormSubmit">
 				<label class="control-label" style="margin-right:50px;">Orders</label>
 				<label class="control-label">Total:</label>
-				<input type="text" id="total" value="" readonly>
+				<input type="text" id="total" name="total" value="" readonly>
+				<button class="btn btn-outline-primary mx-4" type="button" onclick="removeFromOrder()">Remove Item</button>
+				
 				<button class="btn btn-outline-primary mx-5 mb-2 mt-2" type="submit">Place Orders</button>
 
-				<select id="OrderList" class ="form-control" name="menu" size="0" ></select>
-			</div>
+				<select id="OrderList" class ="form-control" size="0" ></select>
 		</form>
 
 	</div>
@@ -61,7 +61,7 @@
 		const elementNotes = document.getElementById('notes');
 		const elementPrice = document.getElementById('price');
 		const elementName = document.getElementById('name');
-		const myDict = JSON.parse('@Json.Serialize(MenuItems)');  //This here be legendary. It was all I needed brother. This line of code here allows you pass objects from C# server side to Javascript. Spent 4 hours trying to figure this one out.
+		const myDict = JSON.parse('@Json.Serialize(ViewBag.MenuItem)');  //This here be legendary. It was all I needed brother. This line of code here allows you pass objects from C# server side to Javascript. Spent 4 hours trying to figure this one out.
 		elementDesc.value = myDict[data].descrption;
 		elementNotes.value = myDict[data].notes;
 		elementPrice.value = '$'+(myDict[data].price).toFixed(2);
@@ -70,23 +70,31 @@
 		console.log(myDict[data].price);
 	}
 
-	function addToMenu() {
+	function addToOrder() {
 		console.log("clickity click!")
         const data = document.getElementById('menuList').value;
         if (data != "") 
 		{ 
 			const dataName = document.getElementById('name').value;
-			const myDict = JSON.parse('@Json.Serialize(MenuItems)');
+			const myDict = JSON.parse('@Json.Serialize(ViewBag.MenuItem)');
 
 			const elementNew = document.createElement('option');
+			const elementNewInput = document.createElement('input');
 
 			const elementOrders = document.getElementById('OrderList');
-			const elementTotal = document.getElementById('total'
-			);
+			const elementTotal = document.getElementById('total');
+            const elementForm = document.getElementById('FormSubmit');
 
             var totalCost = 0;
 			elementNew.value = data;
 			elementNew.innerText = dataName;
+
+			//Adds an input type element to be used in the post functionality of forms
+            elementNewInput.value = data;
+            elementNewInput.name = 'OrderedItems';
+            elementForm.append(elementNewInput);
+
+
 			elementOrders.append(elementNew);
 			elementOrders.size += 1;
 
@@ -96,7 +104,44 @@
 
             elementTotal.value = totalCost.toFixed(2);
 		}
+	}
 
+	function removeFromOrder() {
+		console.log("clackity clack!")
+        const element = document.getElementById('OrderList');
+		const data = element.selectedIndex
+        console.log(data);
+        if (data != -1) 
+		{ 
+			const myDict = JSON.parse('@Json.Serialize(ViewBag.MenuItem)');
+			const elementNew = document.createElement('option');
+            const elementTotal = document.getElementById('total');
+
+			//computes related input index to be removed with removed items
+            const index = (element.selectedIndex + 5);
+            console.log('index = ' + index);
+			const elementForm = document.getElementById('FormSubmit');
+            elementForm[index].remove();
+
+            var totalCost = 0;
+			element.remove(element.selectedIndex);
+			element.size -= 1;
+			//checks select element size to verify where to place the selected index after the removal of one index.
+            if (element.length > 0 && data - 1 <= 0) {
+				element.selectedIndex = 0;
+            } 
+			else 
+			{
+				element.selectedIndex = data - 1;
+			}
+
+
+			for (i = 0; i < element.length ;i++) {
+				totalCost += myDict[element[i].value].price;
+			}
+
+            elementTotal.value = totalCost.toFixed(2);
+		}
 	}
 </script>
 
