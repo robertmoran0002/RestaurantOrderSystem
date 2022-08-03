@@ -1,0 +1,200 @@
+﻿@using RestaurantOrderSystem.Models
+
+@{
+	IEnumerable<Menu> MenuData = ViewData["MenuData"] as IEnumerable<Menu>;
+	Dictionary<int,Menu> MenuItems = new Dictionary<int, Menu>();
+
+	IEnumerable<OrderMain> OrderData = ViewData["OrderData"] as IEnumerable<OrderMain>;
+	Dictionary<int,OrderMain> PlacedOrders = new Dictionary<int, OrderMain>();
+
+	foreach (OrderMain order in OrderData)
+	{
+		PlacedOrders[order.OrderId] = order;
+	}
+
+	foreach (Menu item in MenuData)
+	{
+		MenuItems[item.ItemId] = item;
+	}
+}
+
+ <head>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+</head> 
+
+<h1>Kitchen Orders</h1>
+
+@*	<div class="form-group">
+		<label class="control-label">Menu</label>
+		<button class="btn btn-outline-primary mx-5 mb-2" onclick="addToMenu()">Add</button>
+
+		<select class ="form-control" id="menuList" size="8" asp-items="ViewBag.MenuList" onchange="updateDisplay(value)"></select>
+	</div>
+
+	<div class="form-group">
+		<label class="control-label">Description</label>
+		<input type="text" id="desc" class="form-control" value="" readonly>
+	</div>
+
+	<div class="form-group">
+		<label class="control-label">Notes</label>
+		<input type="text" id="notes" class="form-control" value="" readonly>
+	</div>
+
+	<div class="form-group">
+		<label class="control-label">Price</label>
+		<input type="text" id="price" class="form-control" value="" readonly>
+		<input hidden type="text" id="name" class="form-control" value="" readonly>
+	</div>*@
+
+	<div class="form-group">
+		<label class="control-label">Orders</label>
+		<button class="btn btn-outline-primary mx-5 mb-2" onclick="updateQueue()">Manual Refresh</button>
+
+		<select class="form-control" id="processOrderList" size="8" asp-items="ViewBag.blah" onchange="updateQueue(value)"></select>
+	</div>
+
+	<div class="form-group">
+		<label class="control-label">Name</label>
+		<input type="text" id="name" class="form-control" value="" readonly />
+	</div>
+
+	<div class="form-group">
+		<label class="control-label">Description</label>
+		<input type="text" id="desc" class="form-control" value="" readonly>
+	</div>
+
+	<div class="form-group">
+		<label class="control-label">Quantity</label>
+		<input type="text" id="quantity" class="form-control" value="" readonly />
+	</div>
+
+	<div class="form-group">
+		<label class="control-label">Order Number</label>
+		<input type="text" id="orderNumber" class="form-control" value="" readonly />
+	</div>
+
+	<table>
+		<thead>
+			<tr><th>ItemId</th> <th>Name</th> <th>Quantity</th> <th>Order Number</th> <th>Description</th> <th>Notes</th> </tr>
+		</thead>
+
+		<tbody>
+			<tr><td></td></tr>
+		</tbody>
+	</table>
+
+	<div style="margin-top: 50px; margin-left: 250px">
+    Number of Rows:<input type="text"  id="rows">
+    Number of Coloumn: <input type="text" id="cols">
+    <button>Create Table</button>
+    <div id="tableDiv" style="margin-top: 40px">
+        Table will gentare here.
+    </div>
+</div>
+
+
+<script>
+
+function updateQueue(data) {
+    const elementMenuId = document.getElementById('menuId');
+    const elementName = document.getElementById('name');
+    const elementQuantity = document.getElementById('quantity');
+    const elementOrderNumber = document.getElementById('orderNumber');
+    const elementDesc = document.getElementById('desc');
+	const myMenuDict = JSON.parse('@Json.Serialize(MenuItems)');
+    const myOrderDict = JSON.parse('@Json.Serialize(PlacedOrders)');
+
+    elementMenuId.value = myMenuDict[data].menuId;
+    elementName.value = myMenuDict[data].name;
+	elementQuantity.value = myOrderDict[data].quantity;
+	elementOrderNumber.value = myOrderDict[data].ordernumber;
+    elementDesc.value = myMenuDict[data].descrption;
+
+}
+
+var queueInterval = setInterval(updateQueue, 5000);
+
+function addToDisplay() {
+    const menuData = document.getElementById('menuList').value;
+    const orderData = document.getElementById('orderList').value;
+
+    if (data != "") {
+		
+        const dataName = document.getElementById('name').value;
+        const myMenuDict = JSON.parse('@Json.Serialize(MenuItems)');
+        const myOrderDict = JSON.parse('@Json.Serialize(PlacedOrders)');
+
+        const elementOrders = document.getElementById('OrderList');
+
+		
+		
+	}
+}
+
+    $(document).ready(function(){
+        $("button").click(function(){
+
+		  const myOrderDict = JSON.parse('@Json.Serialize(PlacedOrders)');
+          var number_of_rows = $('#rows').val();
+          var number_of_cols = $('#cols').val();
+          var table_body = '<table border="1">';
+
+          for(var i=0;i<@OrderData.Count();i++){
+            table_body+='<tr>';
+            for(var j=0;j<number_of_cols;j++){
+                table_body +='<td>';
+                table_body +='Table data';
+                table_body +='</td>';
+            }
+            table_body+='</tr>';
+          }
+            table_body+='</table>';
+           $('#tableDiv').html(table_body);
+        });
+    });
+
+	//function updateDisplay(data) {
+	//	const elementDesc = document.getElementById('desc');
+	//	const elementNotes = document.getElementById('notes');
+	//	const elementPrice = document.getElementById('price');
+	//	const elementName = document.getElementById('name');
+	//	const myDict = JSON.parse('');  //This here be legendary. It was all I needed brother. This line of code here allows you pass objects from C# server side to Javascript. Spent 4 hours trying to figure this one out.
+	//	elementDesc.value = myDict[data].descrption;
+	//	elementNotes.value = myDict[data].notes;
+	//	elementPrice.value = '$'+(myDict[data].price).toFixed(2);
+ //       elementName.value = myDict[data].name;
+		
+	//	console.log(myDict[data].price);
+	//}
+
+	//function addToMenu() {
+	//	console.log("clickity click!")
+ //       const data = document.getElementById('menuList').value;
+ //       if (data != "") 
+	//	{ 
+	//		const dataName = document.getElementById('name').value;
+
+
+	//		const elementNew = document.createElement('option');
+
+	//		const elementOrders = document.getElementById('OrderList');
+	//		const elementTotal = document.getElementById('total'
+	//		);
+
+ //           var totalCost = 0;
+	//		elementNew.value = data;
+	//		elementNew.innerText = dataName;
+	//		elementOrders.append(elementNew);
+	//		elementOrders.size += 1;
+
+	//		for (i = 0; i < elementOrders.length ;i++) {
+	//			totalCost += myDict[elementOrders[i].value].price;
+	//		}
+
+ //           elementTotal.value = totalCost.toFixed(2);
+	//	}
+
+	//}
+
+</script>
