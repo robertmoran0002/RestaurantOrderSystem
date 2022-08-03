@@ -1,6 +1,6 @@
 ﻿import React, { Component } from 'react';
 import '../NavMenu.css';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import ReactDOM from 'react';
 
 export class Order extends Component {
@@ -11,6 +11,10 @@ export class Order extends Component {
         this.state = { orders: [], loading: true };
         var axios = require('axios');
     }
+    routeChange = () => {
+        var path = '/placeOrder';
+        useNavigate(path);
+    };
 
     render() {
         let contents = this.state.loading
@@ -22,7 +26,7 @@ export class Order extends Component {
                 <h1>Orders</h1>
                 {contents }
                 <p>
-                    <button className="btn btn-primary" tag={Link} className="text-white" to="/placeOrder">Place New Order</button>                </p>
+                    <Link className="btn text-white box-shadow bg-dark" to="/placeOrder">Place New Order</Link>                </p>
 
             </div>
         );
@@ -30,10 +34,16 @@ export class Order extends Component {
     componentDidMount() {
         this.populateOrderData();
     }
-    async populateOrderData() {
-        const response = await fetch('https://localhost:7011/api/OrderMains');
-        const data = await response.json();
-        this.setState({ orders: data, loading: false });
+    populateOrderData() {
+        fetch('https://localhost:7011/api/OrderMains', {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }).then(response =>  response.json())
+        .then(data=>{ this.setState({ orders: data, loading: false });})
+        .catch((error) => {console.log()});
+       
     }
 
     static renderOrdersTable(orders) {
@@ -54,6 +64,7 @@ export class Order extends Component {
                 <tbody>
                     {orders.map(orderx =>
                         <tr key={orderx.orderId}>
+                            <td>{orderx.orderId}</td>
                             <td>{orderx.orderNumber}</td>
                             <td>{orderx.itemId}</td>
                             <td>{orderx.quantity}</td>

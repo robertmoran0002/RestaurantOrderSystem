@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.VisualStudio.JavaScript.Sdk/0.5.26-alpha">
+﻿<Project Sdk="Microsoft.VisualStudio.JavaScript.Sdk/0.5.26-alpha">
   <PropertyGroup Label="Globals">
     <ProjectGuid>4458c57a-24c7-4a9d-85ec-9439a2e95621</ProjectGuid>
   </PropertyGroup>
@@ -7,4 +7,10 @@
     <JavaScriptTestRoot>src\</JavaScriptTestRoot>
     <JavaScriptTestFramework>Jest</JavaScriptTestFramework>
   </PropertyGroup>
+  <ItemGroup>
+    <None Remove="src\setupProxy.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Remove="src\setupProxy.js" />
+  </ItemGroup>
 </Project>
