@@ -15,6 +15,10 @@ export class Order extends Component {
         var path = '/placeOrder';
         useNavigate(path);
     };
+    routeChange2 = () => {
+        var path = '/addToOrder'
+        useNavigate(path);
+    };
 
     render() {
         let contents = this.state.loading
@@ -24,9 +28,9 @@ export class Order extends Component {
         return (
             <div>
                 <h1>Orders</h1>
+                <p> <Link className="btn text-white box-shadow bg-dark" to="/placeOrder">Place New Order</Link> </p>
                 {contents }
-                <p>
-                    <Link className="btn text-white box-shadow bg-dark" to="/placeOrder">Place New Order</Link>                </p>
+
 
             </div>
         );

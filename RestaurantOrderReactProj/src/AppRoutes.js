@@ -1,6 +1,7 @@
 
 import { PlaceOrder } from "./Orders/PlaceOrder";
 import { Order } from "./Orders/Order";
+import { AddToOrder } from "./Orders/AddToOrder";
 import { Menus } from "./Menus";
 import { Home } from "./Home";
 import { Countries } from "./Countries";
@@ -21,6 +22,10 @@ const AppRoutes = [
 
     {
         path: '/orders',
+        element: <Order />
+    },
+    {
+        path: '/addToOrders',
         element: <Order />
     },
 

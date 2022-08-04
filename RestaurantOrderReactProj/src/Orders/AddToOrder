@@ -1,0 +1,34 @@
+import React, { Component } from 'react';
+import '../NavMenu.css';
+import ReactDOM from 'react';
+
+export class AddToOrder extends Component {
+    static displayName = AddToOrder.name;
+
+    constructor(props) {
+        super(props);
+        this.state = {loading: true, menus: []}
+    }
+
+    componentDidMount(){
+        this.populateInfo();
+    }
+   
+
+    render() {
+        let contents = this.state.loading
+        ? <p><em>Loading...</em></p>
+        : AddToOrder.renderOrderForm(this.state.menus);
+
+        return (
+            <div>
+                <h1 className="text-center">Add To Order</h1>
+                {contents }
+
+            </div>
+        );
+    }
+    static renderOrderForm(menus){
+        
+    }
+}
