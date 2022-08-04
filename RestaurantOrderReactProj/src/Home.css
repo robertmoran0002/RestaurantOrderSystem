@@ -1,0 +1,15 @@
+#intro {
+    background-image: url("../public/chef.jpg");
+    background-size: cover;
+    height: 100vh;
+    width: 100%;
+    margin-left: 0;
+    margin-right: 0;
+  }
+
+  /* Height for devices larger than 576px */
+  @media (min-width: 992px) {
+    #intro {
+      margin-top: -58.59px;
+    }
+  }
