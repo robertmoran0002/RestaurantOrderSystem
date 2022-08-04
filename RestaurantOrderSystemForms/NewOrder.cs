@@ -328,8 +328,8 @@ namespace RestaurantOrderSystemForms
         // Method to readjust screen layout
         private void SetPositions()
         {
-            menuViewListBox.Width = (int)(this.Width * .70);
-            orderViewListBox.Width = (int)(this.Width * .23);
+            menuViewListBox.Width = (int)(this.Width * .65);
+            orderViewListBox.Width = (int)(this.Width * .28);
             orderViewListBox.Left = menuViewListBox.Right + 20;
             label2.Left = menuViewListBox.Right + 20;
             quantityBox.Left = menuViewListBox.Right + 20;
@@ -465,6 +465,7 @@ namespace RestaurantOrderSystemForms
                         }
 
                     }
+                    payOrderInfoBox.Refresh();
                 }
             }
         }
@@ -624,6 +625,11 @@ namespace RestaurantOrderSystemForms
         private void categorySearchComboBox_TextChanged(object sender, EventArgs e)
         {
             fillMenuView();
+        }
+
+        private void orderViewListBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
         }
     }
 

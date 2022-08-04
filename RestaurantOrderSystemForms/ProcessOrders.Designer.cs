@@ -46,9 +46,10 @@
             // orderQueue
             // 
             this.orderQueue.Dock = System.Windows.Forms.DockStyle.Left;
+            this.orderQueue.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.orderQueue.FormattingEnabled = true;
             this.orderQueue.HorizontalScrollbar = true;
-            this.orderQueue.ItemHeight = 15;
+            this.orderQueue.ItemHeight = 21;
             this.orderQueue.Location = new System.Drawing.Point(0, 0);
             this.orderQueue.Name = "orderQueue";
             this.orderQueue.Size = new System.Drawing.Size(1374, 880);

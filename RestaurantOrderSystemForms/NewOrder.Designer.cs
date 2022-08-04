@@ -73,6 +73,7 @@
             this.tabControl1.Controls.Add(this.orderSelectTab);
             this.tabControl1.Controls.Add(this.paymentTab);
             this.tabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tabControl1.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.tabControl1.Location = new System.Drawing.Point(0, 0);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
@@ -98,10 +99,10 @@
             this.orderSelectTab.Controls.Add(this.menuButton);
             this.orderSelectTab.Controls.Add(this.menuViewListBox);
             this.orderSelectTab.Controls.Add(this.label1);
-            this.orderSelectTab.Location = new System.Drawing.Point(4, 24);
+            this.orderSelectTab.Location = new System.Drawing.Point(4, 29);
             this.orderSelectTab.Name = "orderSelectTab";
             this.orderSelectTab.Padding = new System.Windows.Forms.Padding(3);
-            this.orderSelectTab.Size = new System.Drawing.Size(1801, 912);
+            this.orderSelectTab.Size = new System.Drawing.Size(1801, 907);
             this.orderSelectTab.TabIndex = 0;
             this.orderSelectTab.Text = "Order Selection";
             this.orderSelectTab.Click += new System.EventHandler(this.orderSelectTab_Click);
@@ -118,10 +119,11 @@
             // 
             // categorySearchComboBox
             // 
+            this.categorySearchComboBox.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.categorySearchComboBox.FormattingEnabled = true;
             this.categorySearchComboBox.Location = new System.Drawing.Point(595, 47);
             this.categorySearchComboBox.Name = "categorySearchComboBox";
-            this.categorySearchComboBox.Size = new System.Drawing.Size(150, 23);
+            this.categorySearchComboBox.Size = new System.Drawing.Size(150, 29);
             this.categorySearchComboBox.TabIndex = 12;
             this.categorySearchComboBox.TextChanged += new System.EventHandler(this.categorySearchComboBox_TextChanged);
             // 
@@ -150,9 +152,10 @@
             // totalBox
             // 
             this.totalBox.Enabled = false;
+            this.totalBox.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.totalBox.Location = new System.Drawing.Point(1636, 692);
             this.totalBox.Name = "totalBox";
-            this.totalBox.Size = new System.Drawing.Size(100, 23);
+            this.totalBox.Size = new System.Drawing.Size(100, 29);
             this.totalBox.TabIndex = 9;
             // 
             // reviewButton
@@ -169,13 +172,15 @@
             // 
             // orderViewListBox
             // 
+            this.orderViewListBox.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.orderViewListBox.FormattingEnabled = true;
             this.orderViewListBox.HorizontalScrollbar = true;
-            this.orderViewListBox.ItemHeight = 15;
+            this.orderViewListBox.ItemHeight = 21;
             this.orderViewListBox.Location = new System.Drawing.Point(1350, 163);
             this.orderViewListBox.Name = "orderViewListBox";
-            this.orderViewListBox.Size = new System.Drawing.Size(386, 514);
+            this.orderViewListBox.Size = new System.Drawing.Size(386, 508);
             this.orderViewListBox.TabIndex = 7;
+            this.orderViewListBox.SelectedIndexChanged += new System.EventHandler(this.orderViewListBox_SelectedIndexChanged);
             // 
             // removeButton
             // 
@@ -213,9 +218,10 @@
             // 
             // quantityBox
             // 
+            this.quantityBox.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.quantityBox.Location = new System.Drawing.Point(1350, 119);
             this.quantityBox.Name = "quantityBox";
-            this.quantityBox.Size = new System.Drawing.Size(100, 23);
+            this.quantityBox.Size = new System.Drawing.Size(100, 29);
             this.quantityBox.TabIndex = 3;
             this.quantityBox.Text = "1";
             // 
@@ -233,12 +239,13 @@
             // 
             // menuViewListBox
             // 
+            this.menuViewListBox.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.menuViewListBox.FormattingEnabled = true;
             this.menuViewListBox.HorizontalScrollbar = true;
-            this.menuViewListBox.ItemHeight = 15;
+            this.menuViewListBox.ItemHeight = 20;
             this.menuViewListBox.Location = new System.Drawing.Point(40, 95);
             this.menuViewListBox.Name = "menuViewListBox";
-            this.menuViewListBox.Size = new System.Drawing.Size(1279, 769);
+            this.menuViewListBox.Size = new System.Drawing.Size(1279, 764);
             this.menuViewListBox.TabIndex = 1;
             // 
             // label1
@@ -281,19 +288,20 @@
             // tipNumeric
             // 
             this.tipNumeric.DecimalPlaces = 2;
+            this.tipNumeric.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.tipNumeric.Increment = new decimal(new int[] {
             1,
             0,
             0,
             131072});
-            this.tipNumeric.Location = new System.Drawing.Point(1338, 299);
+            this.tipNumeric.Location = new System.Drawing.Point(1607, 305);
             this.tipNumeric.Maximum = new decimal(new int[] {
             1000,
             0,
             0,
             0});
             this.tipNumeric.Name = "tipNumeric";
-            this.tipNumeric.Size = new System.Drawing.Size(120, 23);
+            this.tipNumeric.Size = new System.Drawing.Size(120, 29);
             this.tipNumeric.TabIndex = 18;
             this.tipNumeric.Click += new System.EventHandler(this.tipNumeric_Click);
             this.tipNumeric.KeyUp += new System.Windows.Forms.KeyEventHandler(this.tipNumeric_KeyUp);
@@ -314,9 +322,9 @@
             // 
             this.submit.BackColor = System.Drawing.Color.Lime;
             this.submit.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.submit.Location = new System.Drawing.Point(1338, 405);
+            this.submit.Location = new System.Drawing.Point(1607, 421);
             this.submit.Name = "submit";
-            this.submit.Size = new System.Drawing.Size(83, 35);
+            this.submit.Size = new System.Drawing.Size(98, 35);
             this.submit.TabIndex = 16;
             this.submit.Text = "Submit Payment";
             this.submit.UseVisualStyleBackColor = false;
@@ -326,7 +334,7 @@
             // 
             this.label10.AutoSize = true;
             this.label10.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.label10.Location = new System.Drawing.Point(1338, 335);
+            this.label10.Location = new System.Drawing.Point(1607, 351);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(44, 20);
             this.label10.TabIndex = 15;
@@ -336,7 +344,7 @@
             // 
             this.label9.AutoSize = true;
             this.label9.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.label9.Location = new System.Drawing.Point(1338, 279);
+            this.label9.Location = new System.Drawing.Point(1607, 285);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(31, 20);
             this.label9.TabIndex = 14;
@@ -346,7 +354,7 @@
             // 
             this.label8.AutoSize = true;
             this.label8.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.label8.Location = new System.Drawing.Point(1338, 230);
+            this.label8.Location = new System.Drawing.Point(1605, 220);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(33, 20);
             this.label8.TabIndex = 13;
@@ -356,7 +364,7 @@
             // 
             this.label7.AutoSize = true;
             this.label7.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.label7.Location = new System.Drawing.Point(1338, 155);
+            this.label7.Location = new System.Drawing.Point(1605, 155);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(100, 20);
             this.label7.TabIndex = 12;
@@ -366,7 +374,7 @@
             // 
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.label6.Location = new System.Drawing.Point(1338, 94);
+            this.label6.Location = new System.Drawing.Point(1605, 94);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(130, 20);
             this.label6.TabIndex = 11;
@@ -374,40 +382,44 @@
             // 
             // taxBox
             // 
-            this.taxBox.Location = new System.Drawing.Point(1338, 253);
+            this.taxBox.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.taxBox.Location = new System.Drawing.Point(1605, 243);
             this.taxBox.Name = "taxBox";
             this.taxBox.ReadOnly = true;
-            this.taxBox.Size = new System.Drawing.Size(100, 23);
+            this.taxBox.Size = new System.Drawing.Size(100, 29);
             this.taxBox.TabIndex = 10;
             // 
             // creditCardBox
             // 
-            this.creditCardBox.Location = new System.Drawing.Point(1338, 178);
+            this.creditCardBox.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.creditCardBox.Location = new System.Drawing.Point(1605, 178);
             this.creditCardBox.Name = "creditCardBox";
-            this.creditCardBox.Size = new System.Drawing.Size(151, 23);
+            this.creditCardBox.Size = new System.Drawing.Size(151, 29);
             this.creditCardBox.TabIndex = 9;
             // 
             // amountBox
             // 
-            this.amountBox.Location = new System.Drawing.Point(1338, 358);
+            this.amountBox.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.amountBox.Location = new System.Drawing.Point(1607, 374);
             this.amountBox.Name = "amountBox";
             this.amountBox.ReadOnly = true;
-            this.amountBox.Size = new System.Drawing.Size(100, 23);
+            this.amountBox.Size = new System.Drawing.Size(100, 29);
             this.amountBox.TabIndex = 7;
             // 
             // methodCombo
             // 
+            this.methodCombo.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.methodCombo.FormattingEnabled = true;
-            this.methodCombo.Location = new System.Drawing.Point(1338, 117);
+            this.methodCombo.Location = new System.Drawing.Point(1605, 117);
             this.methodCombo.Name = "methodCombo";
-            this.methodCombo.Size = new System.Drawing.Size(121, 23);
+            this.methodCombo.Size = new System.Drawing.Size(121, 29);
             this.methodCombo.TabIndex = 6;
             // 
             // label5
             // 
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Segoe UI", 26.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.label5.Location = new System.Drawing.Point(916, 19);
+            this.label5.Location = new System.Drawing.Point(1097, 19);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(86, 47);
             this.label5.TabIndex = 5;
@@ -416,12 +428,13 @@
             // payOrderInfoBox
             // 
             this.payOrderInfoBox.BackColor = System.Drawing.SystemColors.Info;
+            this.payOrderInfoBox.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.payOrderInfoBox.FormattingEnabled = true;
             this.payOrderInfoBox.HorizontalScrollbar = true;
-            this.payOrderInfoBox.ItemHeight = 15;
-            this.payOrderInfoBox.Location = new System.Drawing.Point(740, 94);
+            this.payOrderInfoBox.ItemHeight = 21;
+            this.payOrderInfoBox.Location = new System.Drawing.Point(922, 94);
             this.payOrderInfoBox.Name = "payOrderInfoBox";
-            this.payOrderInfoBox.Size = new System.Drawing.Size(577, 619);
+            this.payOrderInfoBox.Size = new System.Drawing.Size(660, 718);
             this.payOrderInfoBox.TabIndex = 4;
             // 
             // refreshPayButton
@@ -438,11 +451,12 @@
             // 
             // payOrderListBox
             // 
+            this.payOrderListBox.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.payOrderListBox.FormattingEnabled = true;
-            this.payOrderListBox.ItemHeight = 15;
+            this.payOrderListBox.ItemHeight = 21;
             this.payOrderListBox.Location = new System.Drawing.Point(26, 94);
             this.payOrderListBox.Name = "payOrderListBox";
-            this.payOrderListBox.Size = new System.Drawing.Size(687, 619);
+            this.payOrderListBox.Size = new System.Drawing.Size(854, 718);
             this.payOrderListBox.TabIndex = 2;
             this.payOrderListBox.Click += new System.EventHandler(this.payOrderListBox_Click);
             // 
