@@ -1,5 +1,57 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
+﻿@using RestaurantOrderSystem.Models
+
+<h1>Unpaid Orders</h1>
+<div class="form-group">
+    <select class="form-control" id="orderList" size="8" asp-items="ViewBag.OrderList" onchange="updateDisplay(value)"></select>
+</div>
+<div>
+    <label class="control-label">Tax</label>
+    <input type="text" id="tax" class="form-control" value="" readonly/>
+</div>
+<div>
+    <label class="control-label">SubTotal</label>
+    <input type="text" id="subtotal" class="form-control" value="" readonly/>
+</div>
+<div>
+    <label class="control-label">Tip</label>
+    <input type="number" id="tip" class="form-control" value="0" onchange="updateTotal()"/>
+</div>
+<div>
+    <label class="control-label">Total</label>
+    <input type="text" id="total" class="form-control" value="" readonly/>
+</div>
+
+
+<script>
+function updateDisplay(data) {
+    const elementSubTotal = document.getElementById('subtotal');
+    const elementTax = document.getElementById('tax');
+    const orderDict = JSON.parse('@Json.Serialize(ViewBag.Orders)');
+    const menuItems = JSON.parse('@Json.Serialize(ViewBag.MenuItems)');
+    var subTotal = 0;
+    var taxAmount = 0;
+    const taxPercent = .075;
+    
+    for (let i = 0; i < orderDict.length; i++) {
+        if (orderDict[i].orderNumber == data) {
+            subTotal += orderDict[i].quantity * menuItems[orderDict[i].itemId].price;
+        }
+    }
+
+    taxAmount = subTotal * taxPercent;
+    subTotal += taxAmount;
+
+    elementTax.value = '$' + taxAmount.toFixed(2);
+    elementSubTotal.value = '$' + subTotal.toFixed(2);
 }
+
+function updateTotal() {
+    const elementTotal = document.getElementById('total');
+    const elementSubTotal = document.getElementById('subtotal');
+    const elementTip = document.getElementById('tip');
+    var subtotal = parseFloat(elementSubTotal.value.substring(1));
+    var tip = parseFloat(elementTip.value);
+    var total = subtotal + tip;
+    elementTotal.value = '$' + total;
+}
+</script>
