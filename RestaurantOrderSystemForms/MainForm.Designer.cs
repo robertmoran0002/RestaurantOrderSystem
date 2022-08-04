@@ -45,7 +45,7 @@
             this.menuToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(800, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(800, 29);
             this.menuStrip1.TabIndex = 1;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -54,21 +54,22 @@
             this.ordersToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.newOrderToolStripMenuItem,
             this.processOrdersToolStripMenuItem});
+            this.ordersToolStripMenuItem.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.ordersToolStripMenuItem.Name = "ordersToolStripMenuItem";
-            this.ordersToolStripMenuItem.Size = new System.Drawing.Size(54, 20);
+            this.ordersToolStripMenuItem.Size = new System.Drawing.Size(72, 25);
             this.ordersToolStripMenuItem.Text = "Orders";
             // 
             // newOrderToolStripMenuItem
             // 
             this.newOrderToolStripMenuItem.Name = "newOrderToolStripMenuItem";
-            this.newOrderToolStripMenuItem.Size = new System.Drawing.Size(182, 22);
+            this.newOrderToolStripMenuItem.Size = new System.Drawing.Size(235, 26);
             this.newOrderToolStripMenuItem.Text = "Orders and Payment";
             this.newOrderToolStripMenuItem.Click += new System.EventHandler(this.newOrderToolStripMenuItem_Click);
             // 
             // processOrdersToolStripMenuItem
             // 
             this.processOrdersToolStripMenuItem.Name = "processOrdersToolStripMenuItem";
-            this.processOrdersToolStripMenuItem.Size = new System.Drawing.Size(182, 22);
+            this.processOrdersToolStripMenuItem.Size = new System.Drawing.Size(235, 26);
             this.processOrdersToolStripMenuItem.Text = "Process Orders";
             this.processOrdersToolStripMenuItem.Click += new System.EventHandler(this.processOrdersToolStripMenuItem_Click);
             // 
@@ -77,21 +78,22 @@
             this.menuToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.categoriesToolStripMenuItem,
             this.menuItemsToolStripMenuItem});
+            this.menuToolStripMenuItem.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.menuToolStripMenuItem.Name = "menuToolStripMenuItem";
-            this.menuToolStripMenuItem.Size = new System.Drawing.Size(50, 20);
+            this.menuToolStripMenuItem.Size = new System.Drawing.Size(66, 25);
             this.menuToolStripMenuItem.Text = "Menu";
             // 
             // categoriesToolStripMenuItem
             // 
             this.categoriesToolStripMenuItem.Name = "categoriesToolStripMenuItem";
-            this.categoriesToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.categoriesToolStripMenuItem.Size = new System.Drawing.Size(180, 26);
             this.categoriesToolStripMenuItem.Text = "Categories";
             this.categoriesToolStripMenuItem.Click += new System.EventHandler(this.categoriesToolStripMenuItem_Click);
             // 
             // menuItemsToolStripMenuItem
             // 
             this.menuItemsToolStripMenuItem.Name = "menuItemsToolStripMenuItem";
-            this.menuItemsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.menuItemsToolStripMenuItem.Size = new System.Drawing.Size(180, 26);
             this.menuItemsToolStripMenuItem.Text = "Menu Items";
             this.menuItemsToolStripMenuItem.Click += new System.EventHandler(this.menuItemsToolStripMenuItem_Click);
             // 
