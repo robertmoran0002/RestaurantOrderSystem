@@ -17,8 +17,19 @@
     <input type="number" id="tip" class="form-control" value="0" onchange="updateTotal()"/>
 </div>
 <div>
-    <label class="control-label">Total</label>
-    <input type="text" id="total" class="form-control" value="" readonly/>
+    <form asp-action="Index" enctype="multipart/form-data" id="FormSubmit">
+        <label class="control-label">Total</label>
+        <input type="text" id="total" name="total" class="form-control" value="" readonly/>
+        <label for="payMethod">Select Payment Method:</label>
+        <select name="payMethod" id="payMethod" required>
+            <option value="Credit Card">Credit Card</option>
+            <option value="Cash">Cash</option>
+        </select>
+        <br />
+        <label class="control-label">Order Number</label>
+    <input type="text" id="orderNumber" name="orderNumber" class="form-control" value="" readonly/>
+    <button class="btn btn-outline-primary mx-5 mb-2 mt-2" type="submit">Submit Payment</button>
+    </form>
 </div>
 
 
@@ -26,6 +37,7 @@
 function updateDisplay(data) {
     const elementSubTotal = document.getElementById('subtotal');
     const elementTax = document.getElementById('tax');
+    const elementOrderNumber = document.getElementById('orderNumber');
     const orderDict = JSON.parse('@Json.Serialize(ViewBag.Orders)');
     const menuItems = JSON.parse('@Json.Serialize(ViewBag.MenuItems)');
     var subTotal = 0;
@@ -41,6 +53,7 @@ function updateDisplay(data) {
     taxAmount = subTotal * taxPercent;
     subTotal += taxAmount;
 
+    elementOrderNumber.value = data;
     elementTax.value = '$' + taxAmount.toFixed(2);
     elementSubTotal.value = '$' + subTotal.toFixed(2);
 }
